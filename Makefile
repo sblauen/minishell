@@ -6,7 +6,7 @@
 #    By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 16:59:41 by sblauens          #+#    #+#              #
-#    Updated: 2018/10/22 18:03:54 by sblauens         ###   ########.fr        #
+#    Updated: 2018/10/31 14:43:52 by sblauens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INC_DIR = include
 
 LIB_DIR = .
 
-SRC_FILES = minishell.c
+SRC_FILES = minishell.c env.c
 
 LIB_NAMES = libft
 
