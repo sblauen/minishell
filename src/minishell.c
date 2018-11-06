@@ -6,24 +6,33 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/10/21 19:14:30 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/03 00:29:11 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static inline int		bin_exec(char **cmd)
+static inline int		bin_exec(char **cmd, char **path)
 {
+	int					ret;
+	int					status;
+	char				*filename;
 	char				*bin;
 	pid_t				pid;
-	/* pid_t				wpid; */
-	int					status;
 
+	ret = -1;
 	pid = fork();
+	bin = ft_strjoin("/", cmd[0]);
 	if (!pid)
 	{
-		bin = ft_strjoin("/bin/", cmd[0]);
-		execve(bin, cmd, NULL);
+		while (*path && ret == -1)
+		{
+			ret = 0;
+			filename = ft_strjoin(*path, bin);
+			ret = execve(filename, cmd, NULL);
+			ft_memdel((void **)&filename);
+			path++;
+		}
 		ft_memdel((void **)&bin);
 		exit(EXIT_FAILURE);
 	}
@@ -38,18 +47,21 @@ static inline int		bin_exec(char **cmd)
 	return (0);
 }
 
-int						main(void)
+int						main(UNUSED int argc, UNUSED char **argv, char **envp)
 {
 	char				*line;
 	char				**cmd;
+	char				**path;
 
 	while (1)
 	{
 		ft_putstr("$> ");
 		ft_gnl(STDIN_FILENO, &line);
 		cmd = ft_strsplit(line, ' ');
-		bin_exec(cmd);
+		if ((path = get_path(envp)))
+			bin_exec(cmd, path);
 		ft_strtabdel(cmd);
+		ft_strtabdel(path);
 		if (ft_strstr(line, "exit") || ft_strstr(line, "quit"))
 		{
 			ft_memdel((void **)&line);
