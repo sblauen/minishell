@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/22 14:10:53 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/15 03:34:21 by sblauens         ###   ########.fr       */
+/*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
+/*   Updated: 2018/11/15 04:00:57 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <sys/wait.h>
-# include "libft.h"
+void					_builtin_cd(const char *path)
+{
+	if (!access(path, X_OK)) 
+	{
+		if(!chdir(path))
+			return ;
+		ft_putstr_fd("cd: not a directory: ", 2);
+		ft_putendl_fd(path, 2);
+		return ;
+	
+	}
+	ft_putstr_fd("cd: no such file or directory: ", 2);
+	ft_putendl_fd(path, 2);
 
-# define UNUSED __attribute__((__unused__))
-
-char					**get_path(char **env);
-void					_builtin_cd(const char *path);
-
-#endif
+}

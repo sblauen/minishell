@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/03 00:29:11 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/15 03:53:02 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ static inline int		bin_exec(char **cmd, char **path)
 	else
 	{
 		wait(&status);
+		if (!ft_strcmp(cmd[0], "cd"))
+		{
+			_builtin_cd(cmd[1]);
+			return (0);
+		}
 	}
 	return (0);
 }
