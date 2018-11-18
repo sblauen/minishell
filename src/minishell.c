@@ -20,6 +20,8 @@ static inline int		bin_exec(char **cmd, char **path)
 	char				*bin;
 	pid_t				pid;
 
+	if (!ft_strcmp(cmd[0], "cd"))
+		return (_builtin_cd(cmd[1]));
 	ret = -1;
 	pid = fork();
 	bin = ft_strjoin("/", cmd[0]);
@@ -43,11 +45,6 @@ static inline int		bin_exec(char **cmd, char **path)
 	else
 	{
 		wait(&status);
-		if (!ft_strcmp(cmd[0], "cd"))
-		{
-			_builtin_cd(cmd[1]);
-			return (0);
-		}
 	}
 	return (0);
 }
