@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/21 19:49:29 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/21 20:43:57 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,31 @@ int					_builtin_cd(const char *path)
 	return (1);
 }
 
+/*
+**  Output the passed arguments to stdout.
+**
+**  If '-n' is passed as option, no trailing newline
+**  will be outputted.
+*/
+
 int					_builtin_echo(const char **args)
 {
+	int				eol;
+
+	if (!ft_strcmp(*args, "-n"))
+	{
+		eol = 0;
+		++args;
+	}
+	else
+		eol = 1;
 	while (*args && *(args + 1))
 	{
 		ft_putstr(*args++);
 		ft_putchar(' ');
 	}
 	ft_putstr(*args);
-	ft_putchar('\n');
+	if (eol)
+		ft_putchar('\n');
 	return (0);
 }
