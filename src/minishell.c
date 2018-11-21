@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/15 03:53:02 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/21 19:53:39 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static inline int		bin_exec(char **cmd, char **path)
 
 	if (!ft_strcmp(cmd[0], "cd"))
 		return (_builtin_cd(cmd[1]));
+	else if (!ft_strcmp(cmd[0], "echo"))
+		return (_builtin_echo((const char **)(cmd + 1)));
 	ret = -1;
 	pid = fork();
 	bin = ft_strjoin("/", cmd[0]);
