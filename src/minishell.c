@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/21 19:53:39 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/21 20:48:10 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ static inline int		bin_exec(char **cmd, char **path)
 			path++;
 		}
 		ft_memdel((void **)&bin);
+		if (ret)
+		{
+			ft_putstr_fd("minishell: command not found: ", 2);
+			ft_putendl_fd(cmd[0], 2);
+		}
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
