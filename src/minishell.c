@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/21 20:48:10 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/22 03:22:05 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,12 @@ int						main(UNUSED int argc, UNUSED char **argv, char **envp)
 		ft_putstr("$> ");
 		ft_gnl(STDIN_FILENO, &line);
 		cmd = ft_strsplit(line, ' ');
-		if ((path = get_path(envp)))
+		if (cmd && (path = get_path(envp)))
+		{
 			bin_exec(cmd, path);
-		ft_strtabdel(cmd);
-		ft_strtabdel(path);
+			ft_strtabdel(cmd);
+			ft_strtabdel(path);
+		}
 		if (ft_strstr(line, "exit") || ft_strstr(line, "quit"))
 		{
 			ft_memdel((void **)&line);
