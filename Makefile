@@ -6,7 +6,7 @@
 #    By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 16:59:41 by sblauens          #+#    #+#              #
-#    Updated: 2018/11/15 03:33:16 by sblauens         ###   ########.fr        #
+#    Updated: 2018/11/22 03:32:42 by sblauens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ CC = clang
 
 CFLAGS = -Wall -Wextra -Werror
 
+GFLAGS = -g
+
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
@@ -41,6 +43,11 @@ LDFLAGS = $(addprefix -L , $(LIB))
 LDLIBS = $(addprefix -, $(patsubst lib%, l%, $(LIB_NAMES)))
 
 all: $(NAME)
+
+dbg: CFLAGS = $(GFLAGS)
+
+dbg: $(NAME)
+	@echo "__debug__"
 
 $(NAME): $(OBJ)
 	@$(CC) $^ $(LDFLAGS) $(LDLIBS) -o $@
