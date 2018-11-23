@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 15:39:12 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/22 07:30:33 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/23 03:17:14 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,6 @@ char					*_builtin_getenv(const char *name, const char **env)
 		if ((**env | (*(*env + 1) << 8)) == s
 				&& !ft_strncmp(*env + 2, name + 2, l - 2) && (*env)[l] == '=')
 			return ((char *)(*env + l + 1));
-		++env;
-	}
-	return (NULL);
-}
-
-/*
-**  Return a table containing the directories listed in the
-**  environement variable PATH.
-**
-**  Each string and the table are dynamically allocated,
-**  do not forget to free them.
-*/
-
-char					**get_path(char **env)
-{
-	while (*env)
-	{
-		if (**env == 'P' && *(*env + 1) == 'A' && *(*env + 2) == 'T'
-				&& *(*env + 3) == 'H' && *(*env + 4) == '=')
-			return (ft_strsplit(*env + 5, ':'));
 		++env;
 	}
 	return (NULL);

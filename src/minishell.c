@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/23 02:31:47 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/23 03:14:31 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,14 @@ int						main(UNUSED int argc, UNUSED char **argv, char **envp)
 			break ;
 		}
 		cmd = ft_strsplit(line, ' ');
-		if (cmd && (path = get_path(envp)))
+		path = ft_strsplit(_builtin_getenv("PATH", (const char **)envp), ':');
+		if (cmd && path)
 		{
 			bin_exec(cmd, path);
 			ft_strtabdel(cmd);
-			ft_strtabdel(path);
 		}
+		if (path)
+			ft_strtabdel(path);
 		ft_memdel((void **)&line);
 	}
 	return (0);
