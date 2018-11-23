@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 15:39:12 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/23 03:17:14 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/23 15:40:22 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 **  be used. This should be more efficient.
 */
 
-char					*_builtin_getenv(const char *name, const char **env)
+char					*_getenv(const char *name, const char **env)
 {
 	size_t				l;
 	short				s;

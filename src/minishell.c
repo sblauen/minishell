@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/23 03:14:31 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/23 15:41:15 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int						main(UNUSED int argc, UNUSED char **argv, char **envp)
 			break ;
 		}
 		cmd = ft_strsplit(line, ' ');
-		path = ft_strsplit(_builtin_getenv("PATH", (const char **)envp), ':');
+		path = ft_strsplit(_getenv("PATH", (const char **)envp), ':');
 		if (cmd && path)
 		{
 			bin_exec(cmd, path);
