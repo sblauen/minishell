@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static inline int		bin_exec(char **cmd, char **path)
+static inline int		bin_exec(char **cmd, char **path, char ***env)
 {
 	int					ret;
 	int					status;
@@ -24,6 +24,8 @@ static inline int		bin_exec(char **cmd, char **path)
 		return (_builtin_cd(cmd[1]));
 	else if (!ft_strcmp(cmd[0], "echo"))
 		return (_builtin_echo((const char **)(cmd + 1)));
+	else if (!ft_strcmp(cmd[0], "setenv"))
+		return (_builtin_setenv((const char **)(cmd + 1), env));
 	ret = -1;
 	pid = fork();
 	bin = ft_strjoin("/", cmd[0]);
@@ -75,7 +77,7 @@ int						main(UNUSED int argc, UNUSED char **argv, char **envp)
 		path = ft_strsplit(_getenv("PATH", (const char **)envp), ':');
 		if (cmd && path)
 		{
-			bin_exec(cmd, path);
+			bin_exec(cmd, path, &envp);
 			ft_strtabdel(cmd);
 		}
 		if (path)

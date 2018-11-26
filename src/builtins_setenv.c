@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+static inline void		printenv(const char **env)
+{
+	if (env)
+		while (*env)
+			ft_putendl(*env++);
+}
+
 static inline char		*setval(const char **args, char **var)
 {
 	size_t				len;
@@ -66,3 +73,25 @@ int						_setenv(const char **args, char ***env)
 	return (0);
 }
 
+/*
+**  Builtin command to add or set a variable.
+**
+**  Returns 0 on succes and 1 on error.
+*/
+
+int						_builtin_setenv(const char **opt, char ***env)
+{
+	if (opt && !opt[0])
+	{
+		printenv((const char **)*env);
+		return (0);
+	}
+	else if (opt + 2 && opt[2])
+	{
+		ft_putendl_fd("setenv: too many arguments\nUsage: VAR value", 2);
+		return (1);
+	}
+	if (_setenv(opt, env) == -1)
+		return (1);
+	return (0);
+}
