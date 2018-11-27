@@ -26,6 +26,8 @@ static inline int		bin_exec(char **cmd, char **path, char ***env)
 		return (_builtin_echo((const char **)(cmd + 1)));
 	else if (!ft_strcmp(cmd[0], "setenv"))
 		return (_builtin_setenv((const char **)(cmd + 1), env));
+	else if (!ft_strcmp(cmd[0], "unsetenv"))
+		return (_builtin_unsetenv((const char **)(cmd + 1), *env));
 	ret = -1;
 	pid = fork();
 	bin = ft_strjoin("/", cmd[0]);

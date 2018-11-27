@@ -21,6 +21,7 @@
 int						_builtin_cd(const char *path);
 int						_builtin_echo(const char **args);
 int						_builtin_setenv(const char **opt, char ***env);
+int						_builtin_unsetenv(const char **args, char **env);
 char					*_getenv(const char *name, const char **env);
 int						_getenv_id(const char *name, const char **env, int i);
 

@@ -119,3 +119,21 @@ int						_builtin_setenv(const char **opt, char ***env)
 		return (1);
 	return (0);
 }
+
+/*
+**  Builtin command to unset a variable.
+**
+**  Returns 0 on succes and 1 on error.
+*/
+
+int						_builtin_unsetenv(const char **args, char **env)
+{
+	if (!args || !*args)
+	{
+		ft_putendl_fd("unsetenv: too few arguments\nUsage: unsetenv VAR", 2);
+		return (1);
+	}
+	if (_unsetenv(*args, env) == -1)
+		return (1);
+	return (0);
+}
