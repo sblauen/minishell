@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 02:23:18 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/27 06:37:22 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/27 10:38:52 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,30 @@ int						_setenv(const char **args, char ***env)
 		(*env)[i] = setval(args, *env + i);
 	else
 		*env = addval(args, *env, i);
+	return (0);
+}
+
+/*
+**  Unset the environ variable 'name'
+**
+**  Returns 0 on succes and -1 on error.
+*/
+
+int						_unsetenv(const char *name, char **env)
+{
+	int					i;
+
+	if (!name || !*name)
+		return (-1);
+	if ((i = _getenv_id(name, (const char **)env, 0)) == -1)
+		return (-1);
+	env += i;
+	/* free(*env); */
+	while (*env)
+	{
+		*env = *(env + 1);
+		++env;
+	}
 	return (0);
 }
 
