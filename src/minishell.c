@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/28 01:39:39 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/28 03:01:14 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,23 @@ static inline int		bin_exec(char **cmd, char **env)
 	char				*bin;
 	char				**path;
 	pid_t				pid;
+	size_t				i;
 
+	i = 0;
 	ret = -1;
 	pid = fork();
-	bin = ft_strjoin("/", cmd[0]);
-	path = ft_strsplit(_getenv("PATH", (const char **)env), ':');
 	if (!pid)
 	{
-		while (*path && ret == -1)
+		if (!(path = ft_strsplit(_getenv("PATH", (const char **)env), ':')))
+			exit(EXIT_FAILURE);
+		bin = ft_strjoin("/", cmd[0]);
+		while (*(path + i) && ret == -1)
 		{
 			ret = 0;
-			filename = ft_strjoin(*path, bin);
+			filename = ft_strjoin(*(path + i), bin);
 			ret = execve(filename, cmd, env);
 			ft_memdel((void **)&filename);
-			path++;
+			++i;
 		}
 		if (path)
 			ft_strtabdel(path);
