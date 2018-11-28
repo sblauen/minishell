@@ -14,7 +14,6 @@
 
 static inline int		bin_exec(char **cmd, char **env)
 {
-	int					ret;
 	int					status;
 	char				*filename;
 	char				*bin;
@@ -23,29 +22,25 @@ static inline int		bin_exec(char **cmd, char **env)
 	size_t				i;
 
 	i = 0;
-	ret = -1;
 	pid = fork();
 	if (!pid)
 	{
 		if (!(path = ft_strsplit(_getenv("PATH", (const char **)env), ':')))
 			exit(EXIT_FAILURE);
 		bin = ft_strjoin("/", cmd[0]);
-		while (*(path + i) && ret == -1)
+		while (*(path + i))
 		{
-			ret = 0;
 			filename = ft_strjoin(*(path + i), bin);
-			ret = execve(filename, cmd, env);
+			if (!access(filename, X_OK))
+				execve(filename, cmd, env);
 			ft_memdel((void **)&filename);
 			++i;
 		}
 		if (path)
 			ft_strtabdel(path);
 		ft_memdel((void **)&bin);
-		if (ret)
-		{
-			ft_putstr_fd("minishell: command not found: ", 2);
-			ft_putendl_fd(cmd[0], 2);
-		}
+		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putendl_fd(cmd[0], 2);
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
