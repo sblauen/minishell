@@ -6,7 +6,7 @@
 #    By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 16:59:41 by sblauens          #+#    #+#              #
-#    Updated: 2018/11/28 23:36:00 by sblauens         ###   ########.fr        #
+#    Updated: 2018/11/30 00:56:17 by sblauens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ CC = clang
 
 CFLAGS = -Wall -Wextra -Werror
 
-GFLAGS = -g3 -fsanitize=address
+GFLAGS = -g3 -fsanitize=address -fsanitize=leak -fno-omit-frame-pointer
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
