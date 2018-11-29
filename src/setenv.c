@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 11:09:07 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 00:21:49 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 00:48:32 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,12 @@ static inline char		**addval(const char **args, char **env, int i)
 
 	if (!(tmp = (char **)malloc((i + 2) * sizeof(char *))))
 		return (NULL);
-	while (*env)
-	{
-		*tmp++ = *env++;
-	}
-	free(env - i);
-	*tmp = NULL;
-	*tmp = setval(args, tmp);
-	*(tmp + 1) = NULL;
-	tmp -= i;
+	tmp[i + 1] = NULL;
+	tmp[i] = NULL;
+	tmp[i] = setval(args, tmp + i);
+	while (i--)
+		tmp[i] = env[i];
+	free(env);
 	return (tmp);
 }
 
