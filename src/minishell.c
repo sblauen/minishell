@@ -6,41 +6,49 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/29 01:06:34 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/29 06:25:13 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static inline int		bin_exec(char **cmd, char **env)
+static inline int		bin_check(char **cmd, char **env)
 {
-	int					status;
-	char				*filename;
+	char				**epath;
+	char				*fpath;
 	char				*bin;
-	char				**path;
-	pid_t				pid;
 	size_t				i;
 
 	i = 0;
+	bin = ft_strjoin("/", cmd[0]);
+	epath = ft_strsplit(_getenv("PATH", (const char **)env), ':');
+	while (*(epath + i))
+	{
+		fpath = ft_strjoin(*(epath + i), bin);
+		if (!access(fpath, X_OK))
+			execve(fpath, cmd, env);
+		ft_memdel((void **)&fpath);
+		++i;
+	}
+	if (epath)
+		ft_strtabdel(epath);
+	ft_memdel((void **)&bin);
+	if (!access(cmd[0], X_OK))
+		execve(cmd[0], cmd, env);
+	ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putendl_fd(cmd[0], 2);
+	return (-1);
+}
+
+static inline int		bin_exec(char **cmd, char **env)
+{
+	int					status;
+	pid_t				pid;
+
 	pid = fork();
 	if (!pid)
 	{
-		if (!(path = ft_strsplit(_getenv("PATH", (const char **)env), ':')))
-			exit(EXIT_FAILURE);
-		bin = ft_strjoin("/", cmd[0]);
-		while (*(path + i))
-		{
-			filename = ft_strjoin(*(path + i), bin);
-			if (!access(filename, X_OK))
-				execve(filename, cmd, env);
-			ft_memdel((void **)&filename);
-			++i;
-		}
-		if (path)
-			ft_strtabdel(path);
-		ft_memdel((void **)&bin);
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putendl_fd(cmd[0], 2);
+		bin_check(cmd, env);
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
