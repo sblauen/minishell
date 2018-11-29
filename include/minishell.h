@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 14:10:53 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/27 11:10:10 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/29 07:22:14 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ char					*_getenv(const char *name, const char **env);
 int						_getenv_id(const char *name, const char **env, int i);
 int						_setenv(const char **args, char ***env);
 int						_unsetenv(const char *name, char **env);
+char					**cpyenv(const char **env);
 
 #endif

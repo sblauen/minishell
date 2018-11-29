@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/29 06:25:13 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/29 07:27:22 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int						main(UNUSED int argc, UNUSED char **argv, char **envp)
 	char				**cmd;
 	char				**env;
 
-	env = envp;
+	env = cpyenv((const char **)envp);
 	while (1)
 	{
 		ft_putstr("$> ");
@@ -100,5 +100,7 @@ int						main(UNUSED int argc, UNUSED char **argv, char **envp)
 		}
 		ft_memdel((void **)&line);
 	}
+	if (env)
+		ft_strtabdel(env);
 	return (0);
 }
