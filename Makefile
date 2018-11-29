@@ -6,7 +6,7 @@
 #    By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 16:59:41 by sblauens          #+#    #+#              #
-#    Updated: 2018/11/27 11:10:36 by sblauens         ###   ########.fr        #
+#    Updated: 2018/11/28 23:36:00 by sblauens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ CC = clang
 
 CFLAGS = -Wall -Wextra -Werror
 
-GFLAGS = -g
+GFLAGS = -g3 -fsanitize=address
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
@@ -50,7 +50,7 @@ dbg: $(NAME)
 	@echo "__debug__"
 
 $(NAME): $(OBJ)
-	@$(CC) $^ $(LDFLAGS) $(LDLIBS) -o $@
+	@$(CC) $(CFLAGS) $^ $(LDFLAGS) $(LDLIBS) -o $@
 	@echo "minishell: linking"
 	@echo "minishell: ready to fork !"
 
