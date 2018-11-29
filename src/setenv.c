@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 11:09:07 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/29 20:40:53 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 00:21:49 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static inline char		*setval(const char **args, char **var)
 {
 	size_t				len;
 
-	/* free((void *)*var); */
+	if (var)
+		free((void *)*var);
 	len = ft_strlen(args[0]) + 2;
 	if (args[1])
 		len += ft_strlen(args[1]);
@@ -37,9 +38,9 @@ static inline char		**addval(const char **args, char **env, int i)
 	while (*env)
 	{
 		*tmp++ = *env++;
-		/* free(*env); */
 	}
-	/* free(env - i); */
+	free(env - i);
+	*tmp = NULL;
 	*tmp = setval(args, tmp);
 	*(tmp + 1) = NULL;
 	tmp -= i;
