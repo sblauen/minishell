@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 11:09:07 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/27 11:11:32 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/29 20:40:53 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ static inline char		*setval(const char **args, char **var)
 	size_t				len;
 
 	/* free((void *)*var); */
-	len = ft_strlen(args[0]) + ft_strlen(args[1]) + 2;
+	len = ft_strlen(args[0]) + 2;
+	if (args[1])
+		len += ft_strlen(args[1]);
 	if (!(*var = (char *)malloc(len * sizeof(char))))
 		return (NULL);
-	ft_strcat(ft_strcat(ft_strcpy(*var, args[0]), "="), args[1]);
+	ft_strcat(ft_strcpy(*var, args[0]), "=");
+	if (args[1])
+		ft_strcat(*var, args[1]);
 	return (*var);
 }
 
