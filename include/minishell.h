@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 14:10:53 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 02:13:14 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 03:51:10 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define UNUSED __attribute__((__unused__))
 
 
-int						_builtin_cd(const char *path);
+int						_builtin_cd(const char *path, const char **env);
 int						_builtin_echo(const char **args);
 int						_builtin_setenv(const char **opt, char ***env);
 int						_builtin_unsetenv(const char **args, char **env);

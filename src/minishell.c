@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/29 07:27:22 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 03:51:45 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static inline int		bin_exec(char **cmd, char **env)
 static inline int		cmd_check(char **cmd, char ***env)
 {
 	if (!ft_strcmp(cmd[0], "cd"))
-		return (_builtin_cd(cmd[1]));
+		return (_builtin_cd(cmd[1], (const char **)*env));
 	else if (!ft_strcmp(cmd[0], "echo"))
 		return (_builtin_echo((const char **)(cmd + 1)));
 	else if (!ft_strcmp(cmd[0], "setenv"))

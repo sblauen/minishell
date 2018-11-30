@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 03:20:39 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 03:52:28 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 **  Change the current working directory.
 */
 
-int						_builtin_cd(const char *path)
+int						_builtin_cd(const char *path, const char **env)
 {
 	struct stat			sb;
 
+	if (!path)
+		path = _getenv("HOME", env);
 	if (!chdir(path))
 		return (0);
 	if (stat(path, &sb) == -1)
