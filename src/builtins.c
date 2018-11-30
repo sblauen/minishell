@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 05:49:36 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 06:44:13 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,19 @@ int					_builtin_echo(const char **args)
 {
 	int				eol;
 
-	if (*args && !ft_strcmp(*args, "-n"))
+	if (*args && **args == '-' && (*args)[1] == 'n')
 	{
 		eol = 0;
 		++args;
 	}
 	else
 		eol = 1;
-	while (*args && *(args + 1))
+	while (*args)
 	{
-		ft_putstr(*args++);
-		ft_putchar(' ');
+		ft_putstr(*args);
+		if (*(args++ + 1))
+			ft_putchar(' ');
 	}
-	ft_putstr(*args);
 	if (eol)
 		ft_putchar('\n');
 	return (0);
