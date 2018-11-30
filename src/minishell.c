@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 09:16:11 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 09:42:34 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,13 @@ static inline int		bin_check(char **cmd, char **env)
 		while (*(epath + i))
 		{
 			fpath = ft_strjoin(*(epath + i), bin);
-			if (!access(fpath, X_OK))
-				execve(fpath, cmd, env);
+			if (!access(fpath, F_OK))
+			{
+				if (!access(fpath, X_OK))
+					execve(fpath, cmd, env);
+				else
+					puterr("minishell: permission denied: ", cmd[0]);
+			}
 			ft_memdel((void **)&fpath);
 			++i;
 		}
@@ -35,9 +40,15 @@ static inline int		bin_check(char **cmd, char **env)
 	if (epath)
 		ft_strtabdel(epath);
 	ft_memdel((void **)&bin);
-	if (!access(cmd[0], X_OK))
-		execve(cmd[0], cmd, env);
-	puterr("minishell: command not found: ", cmd[0]);
+	if (!access(cmd[0], F_OK))
+	{
+		if (!access(cmd[0], X_OK))
+			execve(cmd[0], cmd, env);
+		else
+			puterr("minishell: permission denied: ", cmd[0]);
+	}
+	else
+		puterr("minishell: command not found: ", cmd[0]);
 	return (-1);
 }
 
