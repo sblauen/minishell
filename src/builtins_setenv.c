@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 02:23:18 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/29 20:44:24 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 07:04:05 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,13 @@ static inline void		printenv(const char **env)
 int						_builtin_setenv(const char **opt, char ***env)
 {
 	if (opt && !opt[0])
-	{
 		printenv((const char **)*env);
-		return (0);
-	}
 	else if ((opt + 1) && opt[1] && (opt + 2) && opt[2])
 	{
 		ft_putendl_fd("setenv: too many arguments\nUsage: VAR value", 2);
 		return (1);
 	}
-	if (_setenv(opt, env) == -1)
+	else if (_setenv(opt, env) == -1)
 		return (1);
 	return (0);
 }
