@@ -35,8 +35,7 @@ static inline int		bin_check(char **cmd, char **env)
 	ft_memdel((void **)&bin);
 	if (!access(cmd[0], X_OK))
 		execve(cmd[0], cmd, env);
-	ft_putstr_fd("minishell: command not found: ", 2);
-	ft_putendl_fd(cmd[0], 2);
+	puterr("minishell: command not found: ", cmd[0]);
 	return (-1);
 }
 
