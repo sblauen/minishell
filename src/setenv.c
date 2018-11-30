@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 11:09:07 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 00:48:32 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 07:11:50 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int						_unsetenv(const char *name, char **env)
 	if ((i = _getenv_id(name, (const char **)env, 0)) == -1)
 		return (-1);
 	env += i;
-	/* free(*env); */
+	free(*env);
 	while (*env)
 	{
 		*env = *(env + 1);
