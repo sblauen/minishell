@@ -6,29 +6,30 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/29 01:08:34 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 03:20:39 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "minishell.h"
 
 /*
 **  Change the current working directory.
 */
 
-int					_builtin_cd(const char *path)
+int						_builtin_cd(const char *path)
 {
-	if (!access(path, F_OK))
-	{
-		if(!chdir(path))
-			return (0);
-		ft_putstr_fd("cd: not a directory: ", 2);
-		ft_putendl_fd(path, 2);
-		return (1);
-	
-	}
-	ft_putstr_fd("cd: no such file or directory: ", 2);
-	ft_putendl_fd(path, 2);
+	struct stat			sb;
+
+	if (!chdir(path))
+		return (0);
+	if (stat(path, &sb) == -1)
+		puterr("cd: no such file or directory: ", path);
+	else if ((sb.st_mode & S_IFMT) != S_IFDIR)
+		puterr("cd: not a directory: ", path);
+	else if (!(sb.st_mode & S_IXOTH))
+		puterr("cd: permission denied: ", path);
 	return (1);
 }
 
