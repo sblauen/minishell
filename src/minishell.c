@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 06:50:52 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 09:16:11 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ static inline int		bin_check(char **cmd, char **env)
 
 	i = 0;
 	bin = ft_strjoin("/", cmd[0]);
-	epath = ft_strsplit(_getenv("PATH", (const char **)env), ':');
-	while (*(epath + i))
+	if ((epath = ft_strsplit(_getenv("PATH", (const char **)env), ':')))
 	{
-		fpath = ft_strjoin(*(epath + i), bin);
-		if (!access(fpath, X_OK))
-			execve(fpath, cmd, env);
-		ft_memdel((void **)&fpath);
-		++i;
+		while (*(epath + i))
+		{
+			fpath = ft_strjoin(*(epath + i), bin);
+			if (!access(fpath, X_OK))
+				execve(fpath, cmd, env);
+			ft_memdel((void **)&fpath);
+			++i;
+		}
 	}
 	if (epath)
 		ft_strtabdel(epath);
