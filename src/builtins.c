@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 05:36:07 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/11/30 05:49:36 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int						_builtin_cd(const char *path, char ***env)
 
 	if (!path)
 		path = _getenv("HOME", (const char **)*env);
+	else if (*path == '-' && !*(path + 1))
+		path = _getenv("OLDPWD", (const char **)*env);
 	if (!chdir(path))
 		return (chpwd(env));
 	if (stat(path, &sb) == -1)
