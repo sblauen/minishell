@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 06:44:13 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/01 23:12:10 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int						_builtin_cd(const char *path, char ***env)
 {
 	struct stat			sb;
 
-	if (!path)
-		path = _getenv("HOME", (const char **)*env);
+	if (!path && (!(path = _getenv("HOME", (const char **)*env)) || !*path))
+		return (0);
 	else if (*path == '-' && !*(path + 1))
 		path = _getenv("OLDPWD", (const char **)*env);
 	if (!chdir(path))
