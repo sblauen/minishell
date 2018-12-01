@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 09:42:34 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/01 18:52:15 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static inline int		bin_check(char **cmd, char **env)
 		}
 	}
 	if (epath)
-		ft_strtabdel(epath);
+		ft_strtabdel(&epath);
 	ft_memdel((void **)&bin);
 	if (!access(cmd[0], F_OK))
 	{
@@ -107,10 +107,11 @@ int						main(UNUSED int argc, UNUSED char **argv, char **envp)
 		if (cmd && *cmd)
 			if (cmd_check(cmd, &env) == -1)
 				bin_exec(cmd, env);
-		ft_strtabdel(cmd);
+		if (cmd)
+			ft_strtabdel(&cmd);
 		ft_memdel((void **)&line);
 	}
 	if (env)
-		ft_strtabdel(env);
+		ft_strtabdel(&env);
 	return (0);
 }
