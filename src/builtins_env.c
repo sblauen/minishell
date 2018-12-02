@@ -79,9 +79,12 @@ static inline int		opt0(const char **args, const char **env)
 }
 
 /*
-**  Builtin command to execute a path binary with a modified environment.
+**  Builtin command to execute a binary with a new environment.
 **
-**  Print the environ if no arguments are passed.
+**  Synopsis: env [-0] | [-i] [COMMAND [ARG]...]
+**
+**  Execute a 'COMMAND' in a new environment or
+**  print the environ if no arguments are passed.
 **  '-0': output the environ without newlines.
 **  '-i': execute with an empty environment.
 **  Return 0 on succes and 1 on error.
