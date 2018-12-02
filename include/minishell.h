@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 14:10:53 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 07:22:08 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/02 03:50:12 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 int						_builtin_cd(const char *path, char ***env);
 int						_builtin_echo(const char **args);
+int						_builtin_env(const char **args, const char **env);
 int						_builtin_setenv(const char **args, char ***env);
 int						_builtin_unsetenv(const char **args, char **env);
 char					*_getenv(const char *name, const char **env);
@@ -29,5 +30,6 @@ int						_setenv(const char **args, char ***env);
 int						_unsetenv(const char *name, char **env);
 char					**cpyenv(const char **env);
 void					puterr(const char *str, const char *err);
+int						bin_exec(char *const *cmd, char *const *env);
 
 #endif
