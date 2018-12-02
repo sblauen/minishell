@@ -47,7 +47,11 @@ int						_builtin_setenv(const char **args, char ***env)
 /*
 **  Builtin command to unset a variable.
 **
-**  Returns 0 on succes and 1 on error.
+**  Synopsis: unsetenv NAME
+**
+**  Take one environ variable 'NAME' as argument. If more than
+**  one variable is passed, the following one's will be ignored.
+**  Return 0 on succes and 1 on error.
 */
 
 int						_builtin_unsetenv(const char **args, char **env)
