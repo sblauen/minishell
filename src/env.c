@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 15:39:12 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/29 07:26:00 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/02 04:25:59 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char					*_getenv(const char *name, const char **env)
 		return (NULL);
 	}
 	l = ft_strlen(name);
-	s = *name | (*(name + 1) << 8);
+	s = (short)(*name | (*(name + 1) << 8));
 	while (*env)
 	{
 		if ((**env | (*(*env + 1) << 8)) == s
@@ -77,7 +77,7 @@ int						_getenv_id(const char *name, const char **env, int i)
 		return (i);
 	}
 	l = ft_strlen(name);
-	s = *name | (*(name + 1) << 8);
+	s = (short)(*name | (*(name + 1) << 8));
 	while (*(env + i))
 	{
 		if ((*env[i] | env[i][1] << 8) == s

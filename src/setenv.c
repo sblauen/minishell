@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 11:09:07 by sblauens          #+#    #+#             */
-/*   Updated: 2018/11/30 07:11:50 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/02 04:18:53 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static inline char		*setval(const char **args, char **var)
 	return (*var);
 }
 
-static inline char		**addval(const char **args, char **env, int i)
+static inline char		**addval(const char **args, char **env, size_t i)
 {
 	char				**tmp;
 
@@ -64,7 +64,7 @@ int						_setenv(const char **args, char ***env)
 	if ((*env)[i])
 		(*env)[i] = setval(args, *env + i);
 	else
-		*env = addval(args, *env, i);
+		*env = addval(args, *env, (size_t)i);
 	return (0);
 }
 
