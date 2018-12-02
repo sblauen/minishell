@@ -72,10 +72,12 @@ int						_builtin_cd(const char *path, char ***env)
 }
 
 /*
-**  Output the passed arguments to stdout.
+**  Builtin to output the passed arguments to stdout.
 **
-**  If '-n' is passed as option, no trailing newline
-**  will be outputted.
+**  Synopsis: echo  [-n] [STRING]...
+**
+**  '-n': no trailing newline will be outputted.
+**  Return 0 on succes and 1 on error.
 */
 
 int					_builtin_echo(const char **args)
