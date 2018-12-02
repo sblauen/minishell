@@ -6,13 +6,21 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/02 01:38:25 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/02 07:35:16 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "minishell.h"
+
+/*
+**  Change the current directory
+**
+**  The environment variables 'OLDPWD' and 'PWD'
+**  will be set accordingly.
+**  Return 0 on succes and a value <= -1 on error.
+*/
 
 static inline int		chpwd(const char *path, char ***env)
 {
@@ -35,7 +43,12 @@ static inline int		chpwd(const char *path, char ***env)
 }
 
 /*
-**  Change the current working directory.
+**  Builtin to change the current working directory.
+**
+**  Synopsis: cd [-] | [DIRECTORY]
+**
+**  '-': change to $OLDPWD.
+**  Return 0 on succes and 1 on error.
 */
 
 int						_builtin_cd(const char *path, char ***env)
