@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 02:23:18 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/02 07:15:55 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/02 07:18:02 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int						_builtin_unsetenv(const char **args, char **env)
 {
 	if (!args || !*args)
 	{
-		ft_putendl_fd("unsetenv: too few arguments\nUsage: unsetenv VAR", 2);
+		ft_putendl_fd("unsetenv: too few arguments\nUsage: unsetenv NAME", 2);
 		return (1);
 	}
 	if (_unsetenv(*args, env) == -1)
