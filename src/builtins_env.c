@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_setenv.c                                  :+:      :+:    :+:   */
+/*   builtins_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 02:23:18 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/02 06:32:19 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/02 07:11:59 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ static inline void		printenv(const char **env)
 /*
 **  Builtin command to add or set a variable.
 **
-**  Returns 0 on succes and 1 on error.
+**  Synopsis: setenv [NAME] [VALUE]
+**
+**  Take two arguments, the environment variable 'NAME' and its
+**  'VALUE'. 'NAME' should be uppercase.
+**  If no arguments are passed, the environment will be outputted.
+**  Return 0 on succes and 1 on error.
 */
 
 int						_builtin_setenv(const char **args, char ***env)
