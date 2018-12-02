@@ -6,13 +6,13 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/01 18:52:15 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/02 03:35:43 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static inline int		bin_check(char **cmd, char **env)
+static inline int		bin_check(char *const *cmd, char *const *env)
 {
 	char				**epath;
 	char				*fpath;
@@ -52,7 +52,7 @@ static inline int		bin_check(char **cmd, char **env)
 	return (-1);
 }
 
-static inline int		bin_exec(char **cmd, char **env)
+static inline int		bin_exec(char *const *cmd, char *const *env)
 {
 	int					status;
 	pid_t				pid;
@@ -74,16 +74,16 @@ static inline int		bin_exec(char **cmd, char **env)
 	return (0);
 }
 
-static inline int		cmd_check(char **cmd, char ***env)
+static inline int		cmd_check(const char **cmd, char ***env)
 {
 	if (!ft_strcmp(cmd[0], "cd"))
 		return (_builtin_cd(cmd[1], env));
 	else if (!ft_strcmp(cmd[0], "echo"))
-		return (_builtin_echo((const char **)(cmd + 1)));
+		return (_builtin_echo(cmd + 1));
 	else if (!ft_strcmp(cmd[0], "setenv"))
-		return (_builtin_setenv((const char **)(cmd + 1), env));
+		return (_builtin_setenv(cmd + 1, env));
 	else if (!ft_strcmp(cmd[0], "unsetenv"))
-		return (_builtin_unsetenv((const char **)(cmd + 1), *env));
+		return (_builtin_unsetenv(cmd + 1, *env));
 	return (-1);
 }
 
@@ -105,8 +105,8 @@ int						main(UNUSED int argc, UNUSED char **argv, char **envp)
 		}
 		cmd = ft_strsplit(line, ' ');
 		if (cmd && *cmd)
-			if (cmd_check(cmd, &env) == -1)
-				bin_exec(cmd, env);
+			if (cmd_check((const char **)cmd, &env) == -1)
+				bin_exec((char *const *)cmd, env);
 		if (cmd)
 			ft_strtabdel(&cmd);
 		ft_memdel((void **)&line);
