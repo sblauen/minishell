@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/02 07:35:16 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/02 07:59:36 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,28 @@ int						_builtin_echo(const char **args)
 	}
 	if (eol)
 		ft_putchar('\n');
+	return (0);
+}
+
+/*
+**  Builtin to print the working directory to stdout.
+**
+**  Synopsis: pwd
+**
+**  Return 0 on succes and 1 on error.
+*/
+
+int						_builtin_pwd(const char **args)
+{
+	char				*buf;
+
+	if (args && *args)
+	{
+		puterr("pwd: too many arguments", NULL);
+		return (1);
+	}
+	buf = getcwd(NULL, 0);
+	ft_putendl(buf);
+	free(buf);
 	return (0);
 }
