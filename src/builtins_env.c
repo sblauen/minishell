@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 02:23:18 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/02 07:11:59 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/02 07:15:55 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int						_builtin_setenv(const char **args, char ***env)
 		printenv((const char **)*env);
 	else if ((args + 1) && args[1] && (args + 2) && args[2])
 	{
-		ft_putendl_fd("setenv: too many arguments\nUsage: VAR value", 2);
+		ft_putendl_fd("setenv: too many arguments\nUsage: [NAME] [VALUE]", 2);
 		return (1);
 	}
 	else if (_setenv(args, env) == -1)
