@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/03 17:38:49 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/03 22:27:42 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,14 @@ static inline int		cmd_check(const char **cmd, char ***env)
 	return (-1);
 }
 
-int						main(UNUSED int argc, UNUSED char **argv, char **envp)
+int						main(int argc, UNUSED char **argv, char **envp)
 {
 	char				*line;
 	char				**cmd;
 	char				**env;
 
+	if (errors_check(argc) == 1)
+		return (1);
 	env = cpyenv((const char **)envp);
 	while (1)
 	{
