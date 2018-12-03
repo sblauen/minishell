@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/02 07:56:48 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/03 03:23:07 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int						main(UNUSED int argc, UNUSED char **argv, char **envp)
 	env = cpyenv((const char **)envp);
 	while (1)
 	{
-		ft_putstr("$> ");
+		prompt((const char **)env);
 		ft_gnl(STDIN_FILENO, &line);
 		if (ft_strstr(line, "exit") || ft_strstr(line, "quit"))
 		{
