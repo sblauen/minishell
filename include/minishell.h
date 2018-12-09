@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 14:10:53 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/08 21:42:51 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/09 04:29:35 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void					prompt(const char **env);
 int						errors_check(int argc);
 void					puterr(const char *str, const char *err);
 int						bin_exec(char *const *cmd, char *const *env);
-char					*line_parse(char *line);
+char					*line_parse(char *line, const char **env);
 
 #endif
