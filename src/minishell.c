@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/09 04:30:02 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/09 23:01:12 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int						main(int argc, UNUSED char **argv, char **envp)
 		prompt((const char **)env);
 		if (ft_gnl(STDIN_FILENO, &line) < 0)
 		{
+			if (!line)
+				continue ;
 			ft_putendl_fd("minishell: an error has occured", STDERR_FILENO);
 			break ;
 		}
