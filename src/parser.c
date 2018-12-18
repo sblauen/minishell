@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 13:32:27 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/16 23:32:07 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/18 01:07:46 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,31 @@ char					*quote_s(char *cp)
 	return (cp);
 }
 
-char					*quote_d(char *cp, char **line, const char **env)
+/*
+**  Parse the chunk of the string delimited by double quotes
+**  and pointed to by 'cp'.
+**
+**  Returns the pointer to the character after the closing quote.
+*/
+
+static inline char		*quote_d(char *cp, char **line, const char **env)
 {
-	while (*(cp + 1) != '"' && *(cp + 1))
+	char				*lp;
+
+	lp = cp;
+	while (*(lp + 1) != '"' && *(lp + 1))
 	{
-		if (*(cp + 1) == '$')
-		{
-			cp = set_var(cp, line, env);
-		}
-		else
-		{
-			*cp = *(cp + 1);
-			++cp;
-		}
+		*lp = lp[1];
+		++lp;
 	}
-	ft_strcpy(cp, cp + 2);
+	ft_strcpy(lp, lp + 2);
+	while (cp < lp)
+	{
+		if (*cp == '$')
+			cp = set_var(cp, line, env);
+		else
+			++cp;
+	}
 	return (cp);
 }
 
