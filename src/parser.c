@@ -70,7 +70,14 @@ static inline char		*set_var(char *chrp, char **line, const char **env)
 	return (chrp + 1);
 }
 
-char					*quote_s(char *cp)
+/*
+**  Parse the chunk of the string delimited by simple quotes
+**  and pointed to by 'cp'.
+**
+**  Returns the pointer to the character after the closing quote.
+*/
+
+static inline char		*quote_s(char *cp)
 {
 	while (*(cp + 1) != '\'' && *(cp + 1))
 	{
