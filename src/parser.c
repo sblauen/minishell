@@ -6,14 +6,21 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 13:32:27 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/18 01:07:46 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/18 02:55:53 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
-char					*set_home(char *chrp, char **line, const char **env)
+/*
+**  Modify the character pointed to by 'chrp' to the home's value.
+**
+**  Returns a pointer to the character following the last
+**  one of the home's path.
+*/
+
+static inline char		*set_home(char *chrp, char **line, const char **env)
 {
 	char				*ret;
 	char				*home;
