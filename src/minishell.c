@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/09 23:01:12 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/19 19:12:25 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,22 @@ int						bin_exec(char *const *cmd, char *const *env)
 	return (0);
 }
 
-static inline int		cmd_check(const char **cmd, char ***env)
+static inline int		cmd_check(char ***cmd, char ***env)
 {
-	if (!ft_strcmp(cmd[0], "cd"))
-		return (_builtin_cd(cmd[1], env));
-	else if (!ft_strcmp(cmd[0], "echo"))
-		return (_builtin_echo(cmd + 1));
-	else if (!ft_strcmp(cmd[0], "pwd"))
-		return (_builtin_pwd(cmd + 1));
-	else if (!ft_strcmp(cmd[0], "env"))
-		return (_builtin_env(cmd + 1, (const char **)*env));
-	else if (!ft_strcmp(cmd[0], "setenv"))
-		return (_builtin_setenv(cmd + 1, env));
-	else if (!ft_strcmp(cmd[0], "unsetenv"))
-		return (_builtin_unsetenv(cmd + 1, *env));
+	if (!ft_strcmp((*cmd)[0], "cd"))
+		return (_builtin_cd((const char *)(*cmd)[1], env));
+	else if (!ft_strcmp((*cmd)[0], "echo"))
+		return (_builtin_echo((const char **)*cmd + 1));
+	else if (!ft_strcmp((*cmd)[0], "pwd"))
+		return (_builtin_pwd((const char **)*cmd + 1));
+	else if (!ft_strcmp((*cmd)[0], "env"))
+		return (_builtin_env((const char **)*cmd + 1, (const char **)*env));
+	else if (!ft_strcmp((*cmd)[0], "setenv"))
+		return (_builtin_setenv((const char **)*cmd + 1, env));
+	else if (!ft_strcmp((*cmd)[0], "unsetenv"))
+		return (_builtin_unsetenv((const char **)*cmd + 1, *env));
+	else if (!ft_strcmp((*cmd)[0], "exit"))
+		_builtin_exit(cmd, env);
 	return (-1);
 }
 
@@ -110,21 +112,14 @@ int						main(int argc, UNUSED char **argv, char **envp)
 			ft_putendl_fd("minishell: an error has occured", STDERR_FILENO);
 			break ;
 		}
-		if (ft_strstr(line, "exit") || ft_strstr(line, "quit"))
-		{
-			ft_memdel((void **)&line);
-			break ;
-		}
 		line = line_parse(line, (const char **)env);
 		cmd = ft_strsplit_ws(line);
+		ft_memdel((void **)&line);
 		if (cmd && *cmd)
-			if (cmd_check((const char **)cmd, &env) == -1)
+			if (cmd_check(&cmd, &env) == -1)
 				bin_exec((char *const *)cmd, env);
 		if (cmd)
 			ft_strtabdel(&cmd);
-		ft_memdel((void **)&line);
 	}
-	if (env)
-		ft_strtabdel(&env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/02 07:59:36 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/19 19:29:49 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,30 @@ int						_builtin_pwd(const char **args)
 	ft_putendl(buf);
 	free(buf);
 	return (0);
+}
+
+/*
+**  Builtin to exit the shell.
+**
+**  Synopsis: exit [STATUS]
+**
+**  Exits with the specified status value.
+**  If no status is specified, exits with EXIT_SUCCES as value.
+**  Only the first argument will be taken into account, the other
+**  ones will be ignored.
+*/
+
+void					_builtin_exit(char ***cmd, char ***env)
+{
+	int					status;
+
+	if ((*cmd)[1])
+		status = ft_atoi((*cmd)[1]);
+	else
+		status = EXIT_SUCCESS;
+	if (cmd)
+		ft_strtabdel(cmd);
+	if (env)
+		ft_strtabdel(env);
+	exit(status);
 }
