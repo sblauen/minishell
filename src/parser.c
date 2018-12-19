@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 13:32:27 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/18 02:55:53 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/19 05:50:21 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,22 +104,25 @@ static inline char		*quote_s(char *cp)
 
 static inline char		*quote_d(char *cp, char **line, const char **env)
 {
-	char				*lp;
+	char				*dq;
 
-	lp = cp;
-	while (*(lp + 1) != '"' && *(lp + 1))
+	if (!(dq = ft_strchr(cp + 1, '"')))
 	{
-		*lp = lp[1];
-		++lp;
+		puterr("minishell: ", "missing closing dquote");
+		return (cp + ft_strlen(cp));
 	}
-	ft_strcpy(lp, lp + 2);
-	while (cp < lp)
+	ft_strcpy(cp, cp + 1);
+	while (cp < dq - 1)
 	{
 		if (*cp == '$')
+		{
 			cp = set_var(cp, line, env);
+			dq = ft_strchr(cp, '"') + 1;
+		}
 		else
 			++cp;
 	}
+	ft_strcpy(cp, cp + 1);
 	return (cp);
 }
 
