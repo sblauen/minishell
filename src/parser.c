@@ -86,7 +86,14 @@ static inline char		*set_var(char *chrp, char **line, const char **env)
 
 static inline char		*quote_s(char *cp)
 {
-	while (*(cp + 1) != '\'' && *(cp + 1))
+	char				*sq;
+
+	if (!(sq = ft_strchr(cp + 1, '\'')))
+	{
+		puterr("minishell: ", "missing closing squote");
+		return (cp + ft_strlen(cp));
+	}
+	while (cp < sq - 1)
 	{
 		*cp = *(cp + 1);
 		++cp;
