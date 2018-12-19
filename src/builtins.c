@@ -80,9 +80,9 @@ int						_builtin_cd(const char *path, char ***env)
 **  Return 0 on succes and 1 on error.
 */
 
-int					_builtin_echo(const char **args)
+int						_builtin_echo(const char **args)
 {
-	int				eol;
+	int					eol;
 
 	if (*args && **args == '-' && (*args)[1] == 'n')
 	{
