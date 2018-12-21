@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/19 19:12:25 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/21 17:15:45 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int						bin_exec(char *const *cmd, char *const *env)
 	}
 	else if (pid < 0)
 	{
-		ft_putendl("Error: fork() unsuccesful.");
+		ft_putendl_fd("minishell: could not fork()", STDERR_FILENO);
 	}
 	else
 	{
