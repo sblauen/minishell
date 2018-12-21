@@ -6,10 +6,12 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/21 17:32:17 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/21 17:50:04 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/wait.h>
+#include "libft.h"
 #include "minishell.h"
 
 static inline void		path_check(char *const *cmd, char *const *env)

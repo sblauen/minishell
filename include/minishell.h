@@ -6,18 +6,14 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 14:10:53 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/19 18:52:36 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/21 17:50:09 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <sys/wait.h>
-# include "libft.h"
-
 # define UNUSED __attribute__((__unused__))
-
 
 int						_builtin_cd(const char *path, char ***env);
 int						_builtin_echo(const char **args);
