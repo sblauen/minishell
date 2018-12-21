@@ -6,13 +6,13 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/21 17:15:45 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/21 17:32:17 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static inline int		bin_check(char *const *cmd, char *const *env)
+static inline void		path_check(char *const *cmd, char *const *env)
 {
 	char				**epath;
 	char				*fpath;
@@ -36,10 +36,14 @@ static inline int		bin_check(char *const *cmd, char *const *env)
 			ft_memdel((void **)&fpath);
 			++i;
 		}
-	}
-	if (epath)
 		ft_strtabdel(&epath);
+	}
 	ft_memdel((void **)&bin);
+}
+
+static inline int		bin_check(char *const *cmd, char *const *env)
+{
+	path_check(cmd, env);
 	if (!access(cmd[0], F_OK))
 	{
 		if (!access(cmd[0], X_OK))
