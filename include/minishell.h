@@ -6,14 +6,12 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 14:10:53 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/21 18:13:59 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/26 18:51:16 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# define UNUSED __attribute__((__unused__))
 
 int						_builtin_cd(const char *path, char ***env);
 int						_builtin_echo(const char **args);
@@ -26,7 +24,7 @@ char					*_getenv(const char *name, const char **env);
 int						_getenv_id(const char *name, const char **env, int i);
 int						_setenv(const char **args, char ***env);
 int						_unsetenv(const char *name, char **env);
-char					**cfgenv(char ***env);
+char					**cfgenv(char *argv, char ***env);
 char					**cpyenv(const char **env);
 void					prompt(const char **env);
 int						errors_check(int argc);

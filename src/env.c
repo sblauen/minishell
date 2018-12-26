@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 15:39:12 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/21 18:24:39 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/26 18:49:04 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,16 +127,22 @@ char					**cpyenv(const char **env)
 **  In an error occurs, they will be no changes.
 */
 
-char					**cfgenv(char ***env)
+char					**cfgenv(char *av0, char ***env)
 {
+	char				*sh;
 	char				*buf;
 	char				**args;
 
 	*env = cpyenv((const char **)*env);
 	if ((buf = getcwd(NULL, 0)))
 	{
-		args = (char *[2]){"SHELL", buf};
+		sh = (char *)malloc(sizeof(char)
+				* (ft_strlen(buf) + ft_strlen(av0) + 1));
+		ft_strcpy(sh, buf);
+		ft_strcat(sh, av0 + 1);
+		args = (char *[2]){"SHELL", sh};
 		_setenv((const char **)args, env);
+		free(sh);
 		free(buf);
 	}
 	if ((buf = _getenv("SHLVL", (const char **)*env)))

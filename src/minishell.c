@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/21 18:13:10 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/26 18:33:41 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static inline int		cmd_check(char ***cmd, char ***env)
 	return (-1);
 }
 
-int						main(int argc, UNUSED char **argv, char **envp)
+int						main(int argc, char **argv, char **envp)
 {
 	char				*line;
 	char				**cmd;
@@ -107,7 +107,7 @@ int						main(int argc, UNUSED char **argv, char **envp)
 
 	if (errors_check(argc) == 1)
 		return (1);
-	env = cfgenv(&envp);
+	env = cfgenv(*argv, &envp);
 	while (1)
 	{
 		prompt((const char **)env);
