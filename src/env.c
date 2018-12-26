@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 15:39:12 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/21 17:47:06 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/21 18:24:39 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,32 @@ char					**cpyenv(const char **env)
 	}
 	*cpy = NULL;
 	return (cpy - len);
+}
+
+/*
+**  Updates the environment variables SHELL and SHLVL.
+**
+**  In an error occurs, they will be no changes.
+*/
+
+char					**cfgenv(char ***env)
+{
+	char				*buf;
+	char				**args;
+
+	*env = cpyenv((const char **)*env);
+	if ((buf = getcwd(NULL, 0)))
+	{
+		args = (char *[2]){"SHELL", buf};
+		_setenv((const char **)args, env);
+		free(buf);
+	}
+	if ((buf = _getenv("SHLVL", (const char **)*env)))
+	{
+		buf = ft_uitoa(ft_atoi(buf) + 1);
+		args = (char *[2]){"SHLVL", buf};
+		_setenv((const char **)args, env);
+		free(buf);
+	}
+	return (*env);
 }

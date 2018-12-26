@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/21 17:50:04 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/21 18:13:10 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int						main(int argc, UNUSED char **argv, char **envp)
 
 	if (errors_check(argc) == 1)
 		return (1);
-	env = cpyenv((const char **)envp);
+	env = cfgenv(&envp);
 	while (1)
 	{
 		prompt((const char **)env);
