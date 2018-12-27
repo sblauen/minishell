@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/27 02:53:46 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/27 05:05:46 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ static inline int		cmd_check(char ***cmd, char ***env)
 
 int						main(int argc, char **argv, char **envp)
 {
+	int					ret;
 	char				*line;
 	char				**cmd;
 	char				**env;
@@ -116,12 +117,20 @@ int						main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		prompt((const char **)env);
-		if (ft_gnl(STDIN_FILENO, &line) < 0)
+		if ((ret = ft_gnl(STDIN_FILENO, &line)) <= 0)
 		{
 			if (!line)
 				continue ;
-			ft_putendl_fd("minishell: an error has occured", STDERR_FILENO);
-			break ;
+			if (ret == 0)
+			{
+				write(1, "\r", 1);
+				_builtin_exit(EXIT_SUCCESS, NULL, &env);
+			}
+			else if (ret == -1)
+			{
+				write(STDERR_FILENO, "minishell: an error has occured\n", 32);
+				_builtin_exit(EXIT_FAILURE, NULL, &env);
+			}
 		}
 		line = line_parse(line, (const char **)env);
 		cmd = ft_strsplit_ws(line);
