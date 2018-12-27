@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/26 18:33:41 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/27 02:53:46 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,12 @@ static inline int		cmd_check(char ***cmd, char ***env)
 	else if (!ft_strcmp((*cmd)[0], "unsetenv"))
 		return (_builtin_unsetenv((const char **)*cmd + 1, *env));
 	else if (!ft_strcmp((*cmd)[0], "exit"))
-		_builtin_exit(cmd, env);
+	{
+		if ((*cmd)[1])
+			_builtin_exit(ft_atoi((*cmd)[1]), cmd, env);
+		else
+			_builtin_exit(EXIT_SUCCESS, cmd, env);
+	}
 	return (-1);
 }
 

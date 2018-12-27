@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/21 17:45:49 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/27 03:10:05 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,14 +137,8 @@ int						_builtin_pwd(const char **args)
 **  ones will be ignored.
 */
 
-void					_builtin_exit(char ***cmd, char ***env)
+void					_builtin_exit(int status, char ***cmd, char ***env)
 {
-	int					status;
-
-	if ((*cmd)[1])
-		status = ft_atoi((*cmd)[1]);
-	else
-		status = EXIT_SUCCESS;
 	if (cmd)
 		ft_strtabdel(cmd);
 	if (env)
