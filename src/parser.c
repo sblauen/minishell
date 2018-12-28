@@ -28,7 +28,7 @@ static inline char		*set_home(char *chrp, char **line, const char **env)
 	size_t				homelen;
 	size_t				retlen;
 
-	if (!(home = _getenv("HOME", env)))
+	if (!(home = envget("HOME", env)))
 		return (chrp + 1);
 	homelen = ft_strlen(home);
 	ret = (char *)malloc((ft_strlen(*line) + homelen) * sizeof(char));
@@ -61,7 +61,7 @@ static inline char		*set_var(char *chrp, char **line, const char **env)
 	if (!(tmp = (char *)malloc((len[0] + 1) * sizeof(char))))
 		return (chrp + 1);
 	ft_strlcpy(tmp, chrp + 1, len[0] + 1);
-	val = _getenv(tmp, env);
+	val = envget(tmp, env);
 	free(tmp);
 	if (val)
 	{

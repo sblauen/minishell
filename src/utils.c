@@ -26,7 +26,7 @@ void					prompt(const char **env)
 	char				*pwd;
 	char				*buf;
 
-	if ((pwd = _getenv("PWD", env)))
+	if ((pwd = envget("PWD", env)))
 	{
 		buf = (char *)malloc((ft_strlen(pwd) + 5) * sizeof(char));
 		buf = ft_strcpy(buf, pwd);

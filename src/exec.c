@@ -25,7 +25,7 @@ static inline void		path_check(char *const *cmd, char *const *env)
 
 	i = 0;
 	bin = ft_strjoin("/", cmd[0]);
-	if ((epath = ft_strsplit(_getenv("PATH", (const char **)env), ':')))
+	if ((epath = ft_strsplit(envget("PATH", (const char **)env), ':')))
 	{
 		while (*(epath + i))
 		{

@@ -42,7 +42,7 @@ int						builtin_setenv(const char **args, char ***env)
 				STDERR_FILENO);
 		return (1);
 	}
-	else if (_setenv(args, env) == -1)
+	else if (envset(args, env) == -1)
 		return (1);
 	return (0);
 }
@@ -65,7 +65,7 @@ int						builtin_unsetenv(const char **args, char **env)
 				STDERR_FILENO);
 		return (1);
 	}
-	if (_unsetenv(*args, env) == -1)
+	if (envunset(*args, env) == -1)
 		return (1);
 	return (0);
 }

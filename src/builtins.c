@@ -34,11 +34,11 @@ static inline int		chpwd(const char *path, char ***env)
 	if (!(r = chdir(path)))
 	{
 		args = (char *[2]){"OLDPWD", buf};
-		r += _setenv((const char **)args, env);
+		r += envset((const char **)args, env);
 		free(buf);
 		buf = getcwd(NULL, 0);
 		args = (char *[2]){"PWD", buf};
-		r += _setenv((const char **)args, env);
+		r += envset((const char **)args, env);
 	}
 	free(buf);
 	return (r);
@@ -57,10 +57,10 @@ int						builtin_cd(const char *path, char ***env)
 {
 	struct stat			sb;
 
-	if (!path && (!(path = _getenv("HOME", (const char **)*env)) || !*path))
+	if (!path && (!(path = envget("HOME", (const char **)*env)) || !*path))
 		return (0);
 	else if (*path == '-' && !*(path + 1)
-			&& (!(path = _getenv("OLDPWD", (const char **)*env)) || !*path))
+			&& (!(path = envget("OLDPWD", (const char **)*env)) || !*path))
 		path = ".";
 	if (!chpwd(path, env))
 		return (0);

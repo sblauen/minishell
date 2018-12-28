@@ -53,7 +53,7 @@ static inline char		**addval(const char **args, char **env, size_t i)
 **  Returns 0 on succes and -1 on error.
 */
 
-int						_setenv(const char **args, char ***env)
+int						envset(const char **args, char ***env)
 {
 	char				*name;
 	int					i;
@@ -61,7 +61,7 @@ int						_setenv(const char **args, char ***env)
 	name = (char *)args[0];
 	if (!*env || !name || !*name)
 		return (-1);
-	if ((i = _getenv_id(args[0], (const char **)*env, 0)) == -1)
+	if ((i = envget_id(args[0], (const char **)*env, 0)) == -1)
 		return (-1);
 	if ((*env)[i])
 		(*env)[i] = setval(args, *env + i);
@@ -76,13 +76,13 @@ int						_setenv(const char **args, char ***env)
 **  Returns 0 on succes and -1 on error.
 */
 
-int						_unsetenv(const char *name, char **env)
+int						envunset(const char *name, char **env)
 {
 	int					i;
 
 	if (!name || !*name)
 		return (-1);
-	if ((i = _getenv_id(name, (const char **)env, 0)) == -1)
+	if ((i = envget_id(name, (const char **)env, 0)) == -1)
 		return (-1);
 	env += i;
 	free(*env);

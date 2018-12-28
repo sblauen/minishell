@@ -23,7 +23,7 @@
 **  be used. This should be more efficient.
 */
 
-char					*_getenv(const char *name, const char **env)
+char					*envget(const char *name, const char **env)
 {
 	size_t				l;
 	short				s;
@@ -62,7 +62,7 @@ char					*_getenv(const char *name, const char **env)
 **  If an error occurs -1 will be returned.
 */
 
-int						_getenv_id(const char *name, const char **env, int i)
+int						envget_id(const char *name, const char **env, int i)
 {
 	size_t				l;
 	short				s;
@@ -143,15 +143,15 @@ char					**cfgenv(char *av0, char ***env)
 		ft_strcpy(sh, buf);
 		ft_strcat(sh, av0 + 1);
 		args = (char *[2]){"SHELL", sh};
-		_setenv((const char **)args, env);
+		envset((const char **)args, env);
 		free(sh);
 		free(buf);
 	}
-	if ((buf = _getenv("SHLVL", (const char **)*env)))
+	if ((buf = envget("SHLVL", (const char **)*env)))
 	{
 		buf = ft_uitoa(ft_atoi(buf) + 1);
 		args = (char *[2]){"SHLVL", buf};
-		_setenv((const char **)args, env);
+		envset((const char **)args, env);
 		free(buf);
 	}
 	return (*env);
