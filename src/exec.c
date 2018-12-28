@@ -6,10 +6,12 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 22:54:45 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/28 04:02:11 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/28 19:34:51 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <unistd.h>
 #include <sys/wait.h>
 #include "libft.h"
 #include "minishell.h"

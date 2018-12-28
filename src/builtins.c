@@ -6,11 +6,12 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/27 03:10:05 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/28 20:55:17 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <sys/stat.h>
 #include "libft.h"
 #include "minishell.h"
