@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 02:23:18 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/21 17:46:41 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/28 17:12:47 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int						_builtin_setenv(const char **args, char ***env)
 		printenv((const char **)*env);
 	else if ((args + 1) && args[1] && (args + 2) && args[2])
 	{
-		ft_putendl_fd("setenv: too many arguments\nUsage: [NAME] [VALUE]", 2);
+		ft_putendl_fd("setenv: too many arguments\nUsage: [NAME] [VALUE]",
+				STDERR_FILENO);
 		return (1);
 	}
 	else if (_setenv(args, env) == -1)
@@ -59,7 +60,8 @@ int						_builtin_unsetenv(const char **args, char **env)
 {
 	if (!args || !*args)
 	{
-		ft_putendl_fd("unsetenv: too few arguments\nUsage: unsetenv NAME", 2);
+		ft_putendl_fd("unsetenv: too few arguments\nUsage: unsetenv NAME",
+				STDERR_FILENO);
 		return (1);
 	}
 	if (_unsetenv(*args, env) == -1)
@@ -71,7 +73,7 @@ static inline int		opt0(const char **args, const char **env)
 {
 	if (args && *args)
 	{
-		ft_putendl_fd("env: cannot specify -0 with command", 2);
+		ft_putendl_fd("env: cannot specify -0 with command", STDERR_FILENO);
 		return (1);
 	}
 	while (*env)
