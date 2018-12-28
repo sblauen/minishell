@@ -48,7 +48,7 @@ static inline int		exit_main(int ret, char ***env)
 {
 	if (ret == 0)
 	{
-		write(1, "\r", 1);
+		ft_putchar('\r');
 		_builtin_exit(EXIT_SUCCESS, NULL, env);
 	}
 	else if (ret == -1)
