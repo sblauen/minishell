@@ -32,7 +32,7 @@ static inline void		printenv(const char **env)
 **  Return 0 on succes and 1 on error.
 */
 
-int						_builtin_setenv(const char **args, char ***env)
+int						builtin_setenv(const char **args, char ***env)
 {
 	if (args && !args[0])
 		printenv((const char **)*env);
@@ -57,7 +57,7 @@ int						_builtin_setenv(const char **args, char ***env)
 **  Return 0 on succes and 1 on error.
 */
 
-int						_builtin_unsetenv(const char **args, char **env)
+int						builtin_unsetenv(const char **args, char **env)
 {
 	if (!args || !*args)
 	{
@@ -94,7 +94,7 @@ static inline int		opt0(const char **args, const char **env)
 **  Return 0 on succes and 1 on error.
 */
 
-int						_builtin_env(const char **args, const char **env)
+int						builtin_env(const char **args, const char **env)
 {
 	char				**ep;
 

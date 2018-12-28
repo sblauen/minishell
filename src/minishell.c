@@ -18,23 +18,23 @@
 static inline int		cmd_check(char ***cmd, char ***env)
 {
 	if (!ft_strcmp((*cmd)[0], "cd"))
-		return (_builtin_cd((const char *)(*cmd)[1], env));
+		return (builtin_cd((const char *)(*cmd)[1], env));
 	else if (!ft_strcmp((*cmd)[0], "echo"))
-		return (_builtin_echo((const char **)*cmd + 1));
+		return (builtin_echo((const char **)*cmd + 1));
 	else if (!ft_strcmp((*cmd)[0], "pwd"))
-		return (_builtin_pwd((const char **)*cmd + 1));
+		return (builtin_pwd((const char **)*cmd + 1));
 	else if (!ft_strcmp((*cmd)[0], "env"))
-		return (_builtin_env((const char **)*cmd + 1, (const char **)*env));
+		return (builtin_env((const char **)*cmd + 1, (const char **)*env));
 	else if (!ft_strcmp((*cmd)[0], "setenv"))
-		return (_builtin_setenv((const char **)*cmd + 1, env));
+		return (builtin_setenv((const char **)*cmd + 1, env));
 	else if (!ft_strcmp((*cmd)[0], "unsetenv"))
-		return (_builtin_unsetenv((const char **)*cmd + 1, *env));
+		return (builtin_unsetenv((const char **)*cmd + 1, *env));
 	else if (!ft_strcmp((*cmd)[0], "exit"))
 	{
 		if ((*cmd)[1])
-			_builtin_exit(ft_atoi((*cmd)[1]), cmd, env);
+			builtin_exit(ft_atoi((*cmd)[1]), cmd, env);
 		else
-			_builtin_exit(EXIT_SUCCESS, cmd, env);
+			builtin_exit(EXIT_SUCCESS, cmd, env);
 	}
 	return (-1);
 }
@@ -51,12 +51,12 @@ static inline int		exit_main(int ret, char ***env)
 	if (ret == 0)
 	{
 		ft_putchar('\r');
-		_builtin_exit(EXIT_SUCCESS, NULL, env);
+		builtin_exit(EXIT_SUCCESS, NULL, env);
 	}
 	else if (ret == -1)
 	{
 		ft_putendl_fd("minishell: an error has occured\n", STDERR_FILENO);
-		_builtin_exit(EXIT_FAILURE, NULL, env);
+		builtin_exit(EXIT_FAILURE, NULL, env);
 	}
 	return (1);
 }

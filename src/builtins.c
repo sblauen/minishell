@@ -53,7 +53,7 @@ static inline int		chpwd(const char *path, char ***env)
 **  Return 0 on succes and 1 on error.
 */
 
-int						_builtin_cd(const char *path, char ***env)
+int						builtin_cd(const char *path, char ***env)
 {
 	struct stat			sb;
 
@@ -82,7 +82,7 @@ int						_builtin_cd(const char *path, char ***env)
 **  Return 0 on succes and 1 on error.
 */
 
-int						_builtin_echo(const char **args)
+int						builtin_echo(const char **args)
 {
 	int					eol;
 
@@ -112,7 +112,7 @@ int						_builtin_echo(const char **args)
 **  Return 0 on succes and 1 on error.
 */
 
-int						_builtin_pwd(const char **args)
+int						builtin_pwd(const char **args)
 {
 	char				*buf;
 
@@ -138,7 +138,7 @@ int						_builtin_pwd(const char **args)
 **  ones will be ignored.
 */
 
-void					_builtin_exit(int status, char ***cmd, char ***env)
+void					builtin_exit(int status, char ***cmd, char ***env)
 {
 	if (cmd)
 		ft_strtabdel(cmd);
