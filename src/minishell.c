@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/28 04:10:44 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/28 05:25:07 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,28 @@ static inline int		cmd_check(char ***cmd, char ***env)
 	return (-1);
 }
 
+static inline void		cmd_send(char ***cmd, char ***env)
+{
+	if (**cmd && cmd_check(cmd, env) == -1)
+		bin_exec((char *const *)*cmd, *env);
+	ft_strtabdel(cmd);
+}
+
+static inline int		exit_main(int ret, char ***env)
+{
+	if (ret == 0)
+	{
+		write(1, "\r", 1);
+		_builtin_exit(EXIT_SUCCESS, NULL, env);
+	}
+	else if (ret == -1)
+	{
+		write(STDERR_FILENO, "minishell: an error has occured\n", 32);
+		_builtin_exit(EXIT_FAILURE, NULL, env);
+	}
+	return (1);
+}
+
 int						main(int argc, char **argv, char **envp)
 {
 	int					ret;
@@ -54,25 +76,13 @@ int						main(int argc, char **argv, char **envp)
 		{
 			if (!line)
 				continue ;
-			if (ret == 0)
-			{
-				write(1, "\r", 1);
-				_builtin_exit(EXIT_SUCCESS, NULL, &env);
-			}
-			else if (ret == -1)
-			{
-				write(STDERR_FILENO, "minishell: an error has occured\n", 32);
-				_builtin_exit(EXIT_FAILURE, NULL, &env);
-			}
+			exit_main(ret, &env);
 		}
 		line = line_parse(line, (const char **)env);
 		cmd = ft_strsplit_ws(line);
 		ft_memdel((void **)&line);
-		if (cmd && *cmd)
-			if (cmd_check(&cmd, &env) == -1)
-				bin_exec((char *const *)cmd, env);
 		if (cmd)
-			ft_strtabdel(&cmd);
+			cmd_send(&cmd, &env);
 	}
 	return (0);
 }
