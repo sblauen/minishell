@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/28 05:25:07 by sblauens         ###   ########.fr       */
+/*   Updated: 2018/12/28 19:21:19 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static inline int		exit_main(int ret, char ***env)
 	}
 	else if (ret == -1)
 	{
-		write(STDERR_FILENO, "minishell: an error has occured\n", 32);
+		ft_putendl_fd("minishell: an error has occured\n", STDERR_FILENO);
 		_builtin_exit(EXIT_FAILURE, NULL, env);
 	}
 	return (1);
