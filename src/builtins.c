@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/28 20:55:17 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/13 23:35:48 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int						builtin_cd(const char *path, char ***env)
 	if (!chpwd(path, env))
 		return (0);
 	if (stat(path, &sb) == -1)
-		puterr("cd: no such file or directory: ", path);
+		puterr("cd: cannot change directory: missing or permission denied: ",
+					path);
 	else if ((sb.st_mode & S_IFMT) != S_IFDIR)
 		puterr("cd: not a directory: ", path);
 	else if (!(sb.st_mode & S_IXOTH))
