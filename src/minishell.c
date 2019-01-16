@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/28 19:26:07 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/16 22:15:07 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int						main(int argc, char **argv, char **envp)
 	env = cfgenv(*argv, &envp);
 	while (1)
 	{
-		prompt((const char **)env);
+		prompt();
 		if ((ret = ft_gnl(STDIN_FILENO, &line)) <= 0)
 		{
 			if (!line)

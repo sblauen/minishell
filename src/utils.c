@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 02:01:00 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/28 19:29:46 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/16 22:16:37 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@ void					puterr(const char *str, const char *err)
 	ft_putendl_fd(err, STDERR_FILENO);
 }
 
-void					prompt(const char **env)
+void					prompt(void)
 {
 	char				*pwd;
 	char				*buf;
 
-	if ((pwd = envget("PWD", env)))
+	if ((pwd = getcwd(NULL, 0)))
 	{
 		buf = (char *)malloc((ft_strlen(pwd) + 5) * sizeof(char));
 		buf = ft_strcpy(buf, pwd);
+		free(pwd);
 		buf = ft_strcat(buf, " $> ");
 		ft_putstr(buf);
 		free(buf);
