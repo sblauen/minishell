@@ -6,12 +6,13 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/16 22:15:07 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 01:32:37 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <signal.h>
 #include "libft.h"
 #include "minishell.h"
 
@@ -68,8 +69,8 @@ int						main(int argc, char **argv, char **envp)
 	char				**cmd;
 	char				**env;
 
-	if (errors_check(argc) == 1)
-		return (1);
+	if (signal(SIGINT, sigh_intprompt) == SIG_ERR || errors_check(argc) == 1)
+		exit(EXIT_FAILURE);
 	env = cfgenv(*argv, &envp);
 	while (1)
 	{

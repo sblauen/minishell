@@ -6,13 +6,14 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 22:54:45 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/28 19:34:51 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 01:30:58 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <signal.h>
 #include "libft.h"
 #include "minishell.h"
 
@@ -77,7 +78,11 @@ int						bin_exec(char *const *cmd, char *const *env)
 	}
 	else
 	{
+		if (signal(SIGINT, sigh_intchild) == SIG_ERR)
+			exit(EXIT_FAILURE);
 		wait(&status);
+		if (signal(SIGINT, sigh_intprompt) == SIG_ERR)
+			exit(EXIT_FAILURE);
 	}
 	return (0);
 }

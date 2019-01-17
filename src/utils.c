@@ -6,12 +6,13 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 02:01:00 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/16 22:16:37 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/16 22:50:47 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <signal.h>
 #include "libft.h"
 #include "minishell.h"
 
@@ -53,4 +54,21 @@ int						errors_check(int argc)
 		return (1);
 	}
 	return (0);
+}
+
+void					sigh_intprompt(int signum)
+{
+	if (signum == SIGINT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		prompt();
+	}
+}
+
+void					sigh_intchild(int signum)
+{
+	if (signum == SIGINT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+	}
 }
