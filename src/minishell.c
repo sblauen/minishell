@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 07:44:13 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 08:31:47 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static inline void		cmd_send(char ***cmd, char ***env)
 
 	ret = 0;
 	if (**cmd && cmd_check(cmd, env) == -1)
-		ret = bin_exec((char *const *)*cmd, *env);
+		ret = bin_check((char *const *)*cmd, *env);
 	if (ret == -1)
 		exit_main(-1, cmd, env);
 	else if (ret == -2)

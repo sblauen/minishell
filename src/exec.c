@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 22:54:45 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 01:54:22 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 09:19:02 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,34 @@
 #include "libft.h"
 #include "minishell.h"
 
-static inline void		path_check(char *const *cmd, char *const *env)
+static inline int		run(const char *bin, char *const *cmd,
+								char *const *env)
+{
+	pid_t				pid;
+
+	pid = fork();
+	if (!pid)
+	{
+		execve(bin, cmd, env);
+		return (-2);
+	}
+	else if (pid < 0)
+	{
+		ft_putendl_fd("minishell: could not fork()", STDERR_FILENO);
+	}
+	else
+	{
+		if (signal(SIGINT, sigh_intchild) == SIG_ERR)
+			return (-1);
+		wait(NULL);
+		ft_memdel((void **)&bin);
+		if (signal(SIGINT, sigh_intprompt) == SIG_ERR)
+			return (-1);
+	}
+	return (0);
+}
+
+static inline char		*path_check(char *const *cmd, char *const *env)
 {
 	char				**epath;
 	char				*fpath;
@@ -34,9 +61,8 @@ static inline void		path_check(char *const *cmd, char *const *env)
 			if (!access(fpath, F_OK))
 			{
 				if (!access(fpath, X_OK))
-					execve(fpath, cmd, env);
-				else
-					puterr("minishell: permission denied: ", cmd[0]);
+					break ;
+				puterr("minishell: permission denied: ", cmd[0]);
 			}
 			ft_memdel((void **)&fpath);
 			++i;
@@ -44,44 +70,26 @@ static inline void		path_check(char *const *cmd, char *const *env)
 		ft_strtabdel(&epath);
 	}
 	ft_memdel((void **)&bin);
+	return (fpath);
 }
 
-static inline int		bin_check(char *const *cmd, char *const *env)
+int						bin_check(char *const *cmd, char *const *env)
 {
-	path_check(cmd, env);
-	if (!access(cmd[0], F_OK))
+	char				*bin;
+
+	if ((bin = path_check(cmd, env)))
+		return (run(bin, cmd, env));
+	if (!(bin = ft_strdup(cmd[0])))
+		return (-1);
+	if (!access(bin, F_OK))
 	{
-		if (!access(cmd[0], X_OK))
-			execve(cmd[0], cmd, env);
+		if (!access(bin, X_OK))
+			return (run(bin, cmd, env));
 		else
-			puterr("minishell: permission denied: ", cmd[0]);
+			puterr("minishell: permission denied: ", bin);
 	}
 	else
-		puterr("minishell: command not found: ", cmd[0]);
-	return (-1);
-}
-
-int						bin_exec(char *const *cmd, char *const *env)
-{
-	pid_t				pid;
-
-	pid = fork();
-	if (!pid)
-	{
-		bin_check(cmd, env);
-		return (-2);
-	}
-	else if (pid < 0)
-	{
-		ft_putendl_fd("minishell: could not fork()", STDERR_FILENO);
-	}
-	else
-	{
-		if (signal(SIGINT, sigh_intchild) == SIG_ERR)
-			return (-1);
-		wait(NULL);
-		if (signal(SIGINT, sigh_intprompt) == SIG_ERR)
-			return (-1);
-	}
+		puterr("minishell: command not found: ", bin);
+	ft_memdel((void **)&bin);
 	return (0);
 }
