@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 22:54:45 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 09:19:02 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 21:28:19 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static inline int		run(const char *bin, char *const *cmd,
 		if (signal(SIGINT, sigh_intchild) == SIG_ERR)
 			return (-1);
 		wait(NULL);
-		ft_memdel((void **)&bin);
 		if (signal(SIGINT, sigh_intprompt) == SIG_ERR)
 			return (-1);
 	}
+	ft_memdel((void **)&bin);
 	return (0);
 }
 
@@ -60,9 +60,7 @@ static inline char		*path_check(char *const *cmd, char *const *env)
 			fpath = ft_strjoin(*(epath + i), bin);
 			if (!access(fpath, F_OK))
 			{
-				if (!access(fpath, X_OK))
-					break ;
-				puterr("minishell: permission denied: ", cmd[0]);
+				break ;
 			}
 			ft_memdel((void **)&fpath);
 			++i;
@@ -78,18 +76,21 @@ int						bin_check(char *const *cmd, char *const *env)
 	char				*bin;
 
 	if ((bin = path_check(cmd, env)))
-		return (run(bin, cmd, env));
-	if (!(bin = ft_strdup(cmd[0])))
-		return (-1);
-	if (!access(bin, F_OK))
 	{
 		if (!access(bin, X_OK))
 			return (run(bin, cmd, env));
-		else
-			puterr("minishell: permission denied: ", bin);
+		puterr("minishell: permission denied: ", cmd[0]);
+	}
+	else if (!(bin = ft_strdup(cmd[0])))
+		return (-1);
+	else if (!access(bin, F_OK))
+	{
+		if (!access(bin, X_OK))
+			return (run(bin, cmd, env));
+		puterr("minishell: permission denied: ", cmd[0]);
 	}
 	else
-		puterr("minishell: command not found: ", bin);
+		puterr("minishell: command not found: ", cmd[0]);
 	ft_memdel((void **)&bin);
 	return (0);
 }
