@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 14:10:53 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 08:00:09 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 10:29:55 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int						envunset(const char *name, char **env);
 char					**cfgenv(char *argv, char ***env);
 char					**cpyenv(const char **env);
 void					prompt(void);
+int						cmd_send(char ***cmd, char ***env);
 int						errors_check(int argc);
 void					puterr(const char *str, const char *err);
 int						bin_check(char *const *cmd, char *const *env);

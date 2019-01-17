@@ -58,7 +58,7 @@ static inline void		exit_main(int ret, char ***cmd, char ***env)
 	}
 }
 
-static inline void		cmd_send(char ***cmd, char ***env)
+int						cmd_send(char ***cmd, char ***env)
 {
 	int					ret;
 
@@ -69,7 +69,7 @@ static inline void		cmd_send(char ***cmd, char ***env)
 		exit_main(-1, cmd, env);
 	else if (ret == -2)
 		exit_main(-2, cmd, env);
-	ft_strtabdel(cmd);
+	return (0);
 }
 
 int						main(int argc, char **argv, char **envp)
@@ -94,8 +94,8 @@ int						main(int argc, char **argv, char **envp)
 		line = line_parse(line, (const char **)env);
 		cmd = ft_strsplit_ws(line);
 		ft_memdel((void **)&line);
-		if (cmd)
-			cmd_send(&cmd, &env);
+		if (cmd && !cmd_send(&cmd, &env))
+			ft_strtabdel(&cmd);
 	}
 	return (0);
 }
