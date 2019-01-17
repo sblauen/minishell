@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 01:32:37 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 03:29:51 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static inline void		cmd_send(char ***cmd, char ***env)
 	ft_strtabdel(cmd);
 }
 
-static inline int		exit_main(int ret, char ***env)
+static inline void		exit_main(int ret, char ***cmd, char ***env)
 {
 	if (ret == 0)
 	{
@@ -57,9 +57,8 @@ static inline int		exit_main(int ret, char ***env)
 	else if (ret == -1)
 	{
 		ft_putendl_fd("minishell: an error has occured\n", STDERR_FILENO);
-		builtin_exit(EXIT_FAILURE, NULL, env);
+		builtin_exit(EXIT_FAILURE, cmd, env);
 	}
-	return (1);
 }
 
 int						main(int argc, char **argv, char **envp)
@@ -79,7 +78,7 @@ int						main(int argc, char **argv, char **envp)
 		{
 			if (!line)
 				continue ;
-			exit_main(ret, &env);
+			exit_main(ret, NULL, &env);
 		}
 		line = line_parse(line, (const char **)env);
 		cmd = ft_strsplit_ws(line);
