@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 04:31:16 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 07:44:13 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static inline void		exit_main(int ret, char ***cmd, char ***env)
 {
 	if (ret == 0)
 	{
-		ft_putchar('\r');
+		ft_putstr("\r\033[0K");
 		builtin_exit(EXIT_SUCCESS, NULL, env);
 	}
 	else if (ret == -1)
