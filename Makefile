@@ -6,7 +6,7 @@
 #    By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 16:59:41 by sblauens          #+#    #+#              #
-#    Updated: 2018/12/28 04:01:48 by sblauens         ###   ########.fr        #
+#    Updated: 2019/01/17 23:24:11 by sblauens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,10 @@ CC = clang
 
 CFLAGS = -Wall -Wextra -Werror
 
-GFLAGS = -g3 -fsanitize=address -fsanitize=leak -fno-omit-frame-pointer
+GFLAGS := -g3 -fsanitize=address -fno-omit-frame-pointer
+ifeq ($(shell uname -s), Linux)
+	GFLAGS += -fsanitize=leak
+endif
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
@@ -48,7 +51,7 @@ all: $(NAME)
 dbg: CFLAGS = $(GFLAGS)
 
 dbg: $(NAME)
-	@echo "__debug__"
+	@echo "__debug__: $(GFLAGS)"
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $^ $(LDFLAGS) $(LDLIBS) -o $@
