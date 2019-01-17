@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 03:29:51 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 03:33:01 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ static inline int		cmd_check(char ***cmd, char ***env)
 	return (-1);
 }
 
-static inline void		cmd_send(char ***cmd, char ***env)
-{
-	if (**cmd && cmd_check(cmd, env) == -1)
-		bin_exec((char *const *)*cmd, *env);
-	ft_strtabdel(cmd);
-}
-
 static inline void		exit_main(int ret, char ***cmd, char ***env)
 {
 	if (ret == 0)
@@ -59,6 +52,24 @@ static inline void		exit_main(int ret, char ***cmd, char ***env)
 		ft_putendl_fd("minishell: an error has occured\n", STDERR_FILENO);
 		builtin_exit(EXIT_FAILURE, cmd, env);
 	}
+	else if (ret == -2)
+	{
+		builtin_exit(EXIT_FAILURE, cmd, env);
+	}
+}
+
+static inline void		cmd_send(char ***cmd, char ***env)
+{
+	int					ret;
+
+	ret = 0;
+	if (**cmd && cmd_check(cmd, env) == -1)
+		ret = bin_exec((char *const *)*cmd, *env);
+	if (ret == -1)
+		exit_main(-1, cmd, env);
+	else if (ret == -2)
+		exit_main(-2, cmd, env);
+	ft_strtabdel(cmd);
 }
 
 int						main(int argc, char **argv, char **envp)

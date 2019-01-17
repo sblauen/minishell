@@ -69,7 +69,7 @@ int						bin_exec(char *const *cmd, char *const *env)
 	if (!pid)
 	{
 		bin_check(cmd, env);
-		exit(EXIT_FAILURE);
+		return (-2);
 	}
 	else if (pid < 0)
 	{
@@ -78,10 +78,10 @@ int						bin_exec(char *const *cmd, char *const *env)
 	else
 	{
 		if (signal(SIGINT, sigh_intchild) == SIG_ERR)
-			exit(EXIT_FAILURE);
+			return (-1);
 		wait(NULL);
 		if (signal(SIGINT, sigh_intprompt) == SIG_ERR)
-			exit(EXIT_FAILURE);
+			return (-1);
 	}
 	return (0);
 }
