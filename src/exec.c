@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 22:54:45 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 01:30:58 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 01:54:22 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static inline int		bin_check(char *const *cmd, char *const *env)
 
 int						bin_exec(char *const *cmd, char *const *env)
 {
-	int					status;
 	pid_t				pid;
 
 	pid = fork();
@@ -80,7 +79,7 @@ int						bin_exec(char *const *cmd, char *const *env)
 	{
 		if (signal(SIGINT, sigh_intchild) == SIG_ERR)
 			exit(EXIT_FAILURE);
-		wait(&status);
+		wait(NULL);
 		if (signal(SIGINT, sigh_intprompt) == SIG_ERR)
 			exit(EXIT_FAILURE);
 	}
