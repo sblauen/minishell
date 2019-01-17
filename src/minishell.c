@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 03:33:01 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/17 04:31:16 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int						main(int argc, char **argv, char **envp)
 	char				**cmd;
 	char				**env;
 
-	if (signal(SIGINT, sigh_intprompt) == SIG_ERR || errors_check(argc) == 1)
+	if (signal(SIGINT, sigh_intprompt) == SIG_ERR || errors_check(argc) == -1)
 		exit(EXIT_FAILURE);
 	env = cfgenv(*argv, &envp);
 	while (1)
