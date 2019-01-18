@@ -49,7 +49,7 @@ static inline void		exit_main(int ret, char ***cmd, char ***env)
 	}
 	else if (ret == -1)
 	{
-		ft_putendl_fd("minishell: an error has occured\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: an error has occured\n", STDERR_FILENO);
 		builtin_exit(EXIT_FAILURE, cmd, env);
 	}
 	else if (ret == -2)
