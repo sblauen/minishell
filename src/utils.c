@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 02:01:00 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 04:09:56 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/01/22 14:56:20 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ void					prompt(void)
 
 	if ((pwd = getcwd(NULL, 0)))
 	{
-		buf = (char *)malloc((ft_strlen(pwd) + 5) * sizeof(char));
-		buf = ft_strcpy(buf, pwd);
+		if ((buf = (char *)malloc((ft_strlen(pwd) + 5) * sizeof(char))))
+		{
+			buf = ft_strcpy(buf, pwd);
+			buf = ft_strcat(buf, " $> ");
+			ft_putstr(buf);
+			free(buf);
+		}
 		free(pwd);
-		buf = ft_strcat(buf, " $> ");
-		ft_putstr(buf);
-		free(buf);
 	}
 	else
 		ft_putstr("$> ");
