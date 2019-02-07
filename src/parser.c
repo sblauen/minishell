@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 13:32:27 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/07 04:52:18 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/07 22:46:06 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,62 +79,6 @@ static inline char		*set_var(char *chrp, char **line, const char **env)
 	return (chrp + 1);
 }
 
-/*
-**  Parse the chunk of the string delimited by simple quotes
-**  and pointed to by 'cp'.
-**
-**  Returns the pointer to the character after the closing quote.
-*/
-
-static inline char		*quote_s(char *cp)
-{
-	char				*sq;
-
-	if (!(sq = ft_strchr(cp + 1, '\'')))
-	{
-		puterr("minishell: ", "missing closing squote");
-		return (cp + ft_strlen(cp));
-	}
-	while (cp < sq - 1)
-	{
-		*cp = *(cp + 1);
-		++cp;
-	}
-	ft_strcpy(cp, cp + 2);
-	return (cp);
-}
-
-/*
-**  Parse the chunk of the string delimited by double quotes
-**  and pointed to by 'cp'.
-**
-**  Returns the pointer to the character after the closing quote.
-*/
-
-static inline char		*quote_d(char *cp, char **line, const char **env)
-{
-	char				*dq;
-
-	if (!(dq = ft_strchr(cp + 1, '"')))
-	{
-		puterr("minishell: ", "missing closing dquote");
-		return (cp + ft_strlen(cp));
-	}
-	ft_strcpy(cp, cp + 1);
-	while (cp < dq - 1)
-	{
-		if (*cp == '$')
-		{
-			cp = set_var(cp, line, env);
-			dq = ft_strchr(cp, '"') + 1;
-		}
-		else
-			++cp;
-	}
-	ft_strcpy(cp, cp + 1);
-	return (cp);
-}
-
 char					*line_parse(char *line, const char **env)
 {
 	char				*tmp;
@@ -142,11 +86,7 @@ char					*line_parse(char *line, const char **env)
 	tmp = line;
 	while (*tmp)
 	{
-		if (*tmp == '\'')
-			tmp = quote_s(tmp);
-		else if (*tmp == '"')
-			tmp = quote_d(tmp, &line, env);
-		else if (*tmp == '~')
+		if (*tmp == '~')
 			tmp = set_home(tmp, &line, env);
 		else if (*tmp == '$')
 			tmp = set_var(tmp, &line, env);
