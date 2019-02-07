@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 14:10:53 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 10:29:55 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/07 05:55:20 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int						builtin_setenv(const char **args, char ***env);
 int						builtin_unsetenv(const char **args, char **env);
 char					*envget(const char *name, const char **env);
 int						envget_id(const char *name, const char **env, int i);
-int						envset(const char **args, char ***env);
+int						envset(const char *args[2], char ***env);
 int						envunset(const char *name, char **env);
 char					**cfgenv(char *argv, char ***env);
 char					**cpyenv(const char **env);

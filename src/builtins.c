@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/07 05:45:43 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/07 05:50:44 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,14 @@ static inline int		chpwd(const char *path, char ***env)
 {
 	int					r;
 	char				*buf;
-	char				**args;
 
 	buf = getcwd(NULL, 0);
 	if (!(r = chdir(path)))
 	{
-		args = (char *[2]){"OLDPWD", buf};
-		r += envset((const char **)args, env);
+		r += envset((const char *[2]){"OLDPWD", buf}, env);
 		free(buf);
 		buf = getcwd(NULL, 0);
-		args = (char *[2]){"PWD", buf};
-		r += envset((const char **)args, env);
+		r += envset((const char *[2]){"PWD", buf}, env);
 	}
 	free(buf);
 	return (r);

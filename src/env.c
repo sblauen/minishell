@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 15:39:12 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/07 05:43:51 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/07 05:57:35 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ char					**cfgenv(char *av0, char ***env)
 {
 	char				*sh;
 	char				*buf;
-	char				**args;
 
 	*env = cpyenv((const char **)*env);
 	if ((buf = getcwd(NULL, 0)))
@@ -143,8 +142,7 @@ char					**cfgenv(char *av0, char ***env)
 		{
 			ft_strcpy(sh, buf);
 			ft_strcat(sh, av0 + 1);
-			args = (char *[2]){"SHELL", sh};
-			envset((const char **)args, env);
+			envset((const char *[2]){"SHELL", sh}, env);
 			free(sh);
 		}
 		free(buf);
@@ -152,8 +150,7 @@ char					**cfgenv(char *av0, char ***env)
 	if ((buf = envget("SHLVL", (const char **)*env)))
 	{
 		buf = ft_uitoa(ft_atoi(buf) + 1);
-		args = (char *[2]){"SHLVL", buf};
-		envset((const char **)args, env);
+		envset((const char *[2]){"SHLVL", buf}, env);
 		free(buf);
 	}
 	return (*env);

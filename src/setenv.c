@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 11:09:07 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/28 19:27:45 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/07 05:55:28 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static inline char		**addval(const char **args, char **env, size_t i)
 **  Returns 0 on succes and -1 on error.
 */
 
-int						envset(const char **args, char ***env)
+int						envset(const char *args[2], char ***env)
 {
 	char				*name;
 	int					i;
