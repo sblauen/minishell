@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 08:31:47 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/08 00:48:26 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,29 @@ int						cmd_send(char ***cmd, char ***env)
 	return (0);
 }
 
+int						cmd_split(char **line, char ***env)
+{
+	int					i;
+	char				**cmd;
+
+	i = 0;
+	cmd = ft_strsplit_ws(*line);
+	if (!cmd)
+		return (-1);
+	while (cmd[i])
+	{
+		cmd[i] = line_parse(cmd[i], (const char **)*env);
+		++i;
+	}
+	if (!cmd_send(&cmd, env))
+		ft_strtabdel(&cmd);
+	return (0);
+}
+
 int						main(int argc, char **argv, char **envp)
 {
 	int					ret;
 	char				*line;
-	char				**cmd;
 	char				**env;
 
 	if (signal(SIGINT, sigh_intprompt) == SIG_ERR || errors_check(argc) == -1)
@@ -91,11 +109,13 @@ int						main(int argc, char **argv, char **envp)
 				continue ;
 			exit_main(ret, NULL, &env);
 		}
-		line = line_parse(line, (const char **)env);
-		cmd = ft_strsplit_ws(line);
+		if (ft_strchr(line, ';'))
+			ret = line_split(&line, &env);
+		else
+			ret = cmd_split(&line, &env);
 		ft_memdel((void **)&line);
-		if (cmd && !cmd_send(&cmd, &env))
-			ft_strtabdel(&cmd);
+		if (ret == -1)
+			exit_main(ret, NULL, &env);
 	}
 	return (0);
 }

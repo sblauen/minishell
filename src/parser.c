@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 13:32:27 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/07 22:46:06 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/08 00:49:06 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,22 @@ char					*line_parse(char *line, const char **env)
 			++tmp;
 	}
 	return (line);
+}
+
+int						line_split(char **line, char ***env)
+{
+	int					i;
+	char				**split;
+
+	i = 0;
+	split = ft_strsplit(*line, ';');
+	if (!split)
+		return (-1);
+	while (split[i])
+	{
+		cmd_split(split + i, env);
+		++i;
+	}
+	ft_strtabdel(&split);
+	return (0);
 }
