@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 13:32:27 by sblauens          #+#    #+#             */
-/*   Updated: 2018/12/28 19:30:14 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/07 04:52:18 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static inline char		*set_home(char *chrp, char **line, const char **env)
 	if (!(home = envget("HOME", env)))
 		return (chrp + 1);
 	homelen = ft_strlen(home);
-	ret = (char *)malloc((ft_strlen(*line) + homelen) * sizeof(char));
+	if (!(ret = (char *)malloc((ft_strlen(*line) + homelen) * sizeof(char))))
+		return (chrp + 1);
 	retlen = ft_strlcpy(ret, *line, (chrp - *line) + 1);
 	retlen = ft_strlcat(ret, home, retlen + homelen);
 	ft_strcat(ret, chrp + 1);
