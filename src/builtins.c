@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/13 23:35:48 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/07 05:45:43 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ int						builtin_pwd(const char **args)
 
 void					builtin_exit(int status, char ***cmd, char ***env)
 {
-	if (cmd)
+	if (cmd && *cmd)
 		ft_strtabdel(cmd);
-	if (env)
+	if (env && *env)
 		ft_strtabdel(env);
 	exit(status);
 }
