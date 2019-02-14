@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 15:39:12 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/07 05:57:35 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/14 17:13:53 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char					*envget(const char *name, const char **env)
 	while (*env)
 	{
 		if ((**env | (*(*env + 1) << 8)) == s
-				&& !ft_strncmp(*env + 2, name + 2, l - 2) && (*env)[l] == '=')
+			&& !ft_strncmp(*env + 2, name + 2, l - 2) && (*env)[l] == '=')
 			return ((char *)(*env + l + 1));
 		++env;
 	}
@@ -84,7 +84,7 @@ int						envget_id(const char *name, const char **env, int i)
 	while (*(env + i))
 	{
 		if ((*env[i] | env[i][1] << 8) == s
-				&& !ft_strncmp(env[i] + 2, name + 2, l - 2) && env[i][l] == '=')
+			&& !ft_strncmp(env[i] + 2, name + 2, l - 2) && env[i][l] == '=')
 			return (i);
 		++i;
 	}

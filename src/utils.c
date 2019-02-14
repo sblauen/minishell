@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 02:01:00 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/15 17:09:56 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/15 20:48:09 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int						errors_check(int argc)
 	if (argc > 1)
 	{
 		ft_putendl_fd("minishell: options are not supported ... yet",
-				STDERR_FILENO);
+						STDERR_FILENO);
 		return (-1);
 	}
 	else if (read(STDIN_FILENO, NULL, 0) < 0)
