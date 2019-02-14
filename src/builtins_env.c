@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 02:23:18 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 19:22:40 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/14 16:48:52 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,28 @@ static inline void		printenv(const char **env)
 
 int						builtin_setenv(const char **args, char ***env)
 {
+	const char			*name;
+
 	if (args && !args[0])
+	{
 		printenv((const char **)*env);
+		return (0);
+	}
 	else if ((args + 1) && args[1] && (args + 2) && args[2])
 	{
 		ft_putendl_fd("setenv: too many arguments\nUsage: [NAME] [VALUE]",
-				STDERR_FILENO);
+						STDERR_FILENO);
 		return (1);
 	}
-	else if (envset(args, env) == -1)
+	name = *args;
+	while (*name)
+		if (!ft_isalnum(*name++))
+		{
+			ft_putendl_fd("setenv: variable name must be alphanumeric",
+							STDERR_FILENO);
+			return (1);
+		}
+	if (envset(args, env) == -1)
 		return (1);
 	return (0);
 }
