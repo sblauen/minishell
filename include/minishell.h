@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 14:10:53 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/15 17:01:13 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:25:54 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int						cmd_split(char **line, char ***env);
 int						cmd_send(char ***cmd, char ***env);
 int						errors_check(int argc);
 void					puterr(const char *s, const char *err, const char *cmd);
-int						bin_check(char *const *cmd, char *const *env);
+int						bin_check(char *const *cmd, char *const *env,
+									const char *caller);
 int						line_split(char **line, char ***env);
 char					*line_parse(char *line, const char **env);
 void					sigh_intprompt(int signum);

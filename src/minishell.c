@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 18:49:40 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/08 00:48:26 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:27:31 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int						cmd_send(char ***cmd, char ***env)
 
 	ret = 0;
 	if (**cmd && cmd_check(cmd, env) == -1)
-		ret = bin_check((char *const *)*cmd, *env);
+		ret = bin_check((char *const *)*cmd, (char *const *)*env,
+							"minishell: ");
 	if (ret == -1)
 		exit_main(-1, cmd, env);
 	else if (ret == -2)

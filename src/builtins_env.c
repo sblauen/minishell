@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 02:23:18 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/14 16:48:52 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:26:45 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int						builtin_env(const char **args, const char **env)
 	}
 	else
 		ep = cpyenv(env);
-	cmd_send((char ***)&args, (char ***)&ep);
+	bin_check((char *const *)args, (char *const *)ep, "env: ");
 	if (ep)
 		ft_strtabdel(&ep);
 	return (0);

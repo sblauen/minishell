@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 22:54:45 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/15 17:01:36 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:22:26 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "minishell.h"
 
 static inline int		run(const char *bin, char *const *cmd,
-								char *const *env)
+								char *const *env, const char *caller)
 {
 	pid_t				pid;
 
@@ -30,7 +30,7 @@ static inline int		run(const char *bin, char *const *cmd,
 	}
 	else if (pid < 0)
 	{
-		ft_putendl_fd("minishell: could not fork()", STDERR_FILENO);
+		puterr(caller, "could not fork()", NULL);
 	}
 	else
 	{
@@ -72,7 +72,7 @@ static inline char		*path_check(char *const *cmd, char *const *env)
 }
 
 static inline int		rights_check(const char *bin, char *const *cmd,
-										char *const *env)
+										char *const *env, const char *caller)
 {
 	struct stat			sb;
 
@@ -82,18 +82,19 @@ static inline int		rights_check(const char *bin, char *const *cmd,
 	}
 	else if ((sb.st_mode & S_IFMT) == S_IFDIR)
 	{
-		puterr("minishell: ", "cannot execute a directory: ", cmd[0]);
+		puterr(caller, "cannot execute a directory: ", cmd[0]);
 		return (0);
 	}
 	else if (!access(bin, X_OK))
 	{
-		return (run(bin, cmd, env));
+		return (run(bin, cmd, env, caller));
 	}
-	puterr("minishell: ", "permission denied: ", cmd[0]);
+	puterr(caller, "permission denied: ", cmd[0]);
 	return (0);
 }
 
-int						bin_check(char *const *cmd, char *const *env)
+int						bin_check(char *const *cmd, char *const *env,
+									const char *caller)
 {
 	int					ret;
 	char				*bin;
@@ -101,7 +102,7 @@ int						bin_check(char *const *cmd, char *const *env)
 	ret = 0;
 	if ((bin = path_check(cmd, env)))
 	{
-		ret = rights_check(bin, cmd, env);
+		ret = rights_check(bin, cmd, env, caller);
 	}
 	else if (!(bin = ft_strdup(cmd[0])))
 	{
@@ -109,11 +110,11 @@ int						bin_check(char *const *cmd, char *const *env)
 	}
 	else if (!access(bin, F_OK))
 	{
-		ret = rights_check(bin, cmd, env);
+		ret = rights_check(bin, cmd, env, caller);
 	}
 	else
 	{
-		puterr("minishell: ", "command not found: ", cmd[0]);
+		puterr(caller, "command not found: ", cmd[0]);
 	}
 	ft_memdel((void **)&bin);
 	return (ret);
