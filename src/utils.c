@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 02:01:00 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/22 14:56:20 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:09:56 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@
 #include "libft.h"
 #include "minishell.h"
 
-void					puterr(const char *str, const char *err)
+void					puterr(const char *s, const char *err, const char *cmd)
 {
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putendl_fd(err, STDERR_FILENO);
+	if (s)
+		ft_putstr_fd(s, STDERR_FILENO);
+	if (err)
+		ft_putstr_fd(err, STDERR_FILENO);
+	if (cmd)
+		ft_putstr_fd(cmd, STDERR_FILENO);
+	write(STDERR_FILENO, "\n", 1);
 }
 
 void					prompt(void)

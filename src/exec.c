@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 22:54:45 by sblauens          #+#    #+#             */
-/*   Updated: 2019/01/17 22:33:37 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/15 17:01:36 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ static inline int		rights_check(const char *bin, char *const *cmd,
 	}
 	else if ((sb.st_mode & S_IFMT) == S_IFDIR)
 	{
-		puterr("minishell: cannot execute a directory: ", cmd[0]);
+		puterr("minishell: ", "cannot execute a directory: ", cmd[0]);
 		return (0);
 	}
 	else if (!access(bin, X_OK))
 	{
 		return (run(bin, cmd, env));
 	}
-	puterr("minishell: permission denied: ", cmd[0]);
+	puterr("minishell: ", "permission denied: ", cmd[0]);
 	return (0);
 }
 
@@ -113,7 +113,7 @@ int						bin_check(char *const *cmd, char *const *env)
 	}
 	else
 	{
-		puterr("minishell: command not found: ", cmd[0]);
+		puterr("minishell: ", "command not found: ", cmd[0]);
 	}
 	ft_memdel((void **)&bin);
 	return (ret);
