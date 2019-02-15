@@ -6,7 +6,7 @@
 #    By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/05 16:59:41 by sblauens          #+#    #+#              #
-#    Updated: 2019/01/17 23:24:11 by sblauens         ###   ########.fr        #
+#    Updated: 2019/02/15 03:12:39 by sblauens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,17 +46,19 @@ LDFLAGS = $(addprefix -L , $(LIB))
 
 LDLIBS = $(addprefix -, $(patsubst lib%, l%, $(LIB_NAMES)))
 
+CMSG = "\r"
+
 all: $(NAME)
 
 dbg: CFLAGS = $(GFLAGS)
-
+dbg: CMSG = "__debug__: $(GFLAGS)\n"
 dbg: $(NAME)
-	@echo "__debug__: $(GFLAGS)"
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $^ $(LDFLAGS) $(LDLIBS) -o $@
 	@echo "minishell: linking"
 	@echo "minishell: ready to fork !"
+	@printf $(CMSG)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(LIB_NAMES) $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
@@ -89,4 +91,4 @@ fclean_lib:
 
 re: fclean all
 
-.PHONY: all clean fclean re $(LIB_NAMES)
+.PHONY: all dbg clean fclean re $(LIB_NAMES)
