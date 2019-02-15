@@ -6,7 +6,7 @@
 /*   By: sblauens <sblauens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 01:49:51 by sblauens          #+#    #+#             */
-/*   Updated: 2019/02/07 05:50:44 by sblauens         ###   ########.fr       */
+/*   Updated: 2019/02/15 03:02:44 by sblauens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,14 @@ int						builtin_pwd(const char **args)
 
 	if (args && *args)
 	{
-		puterr("pwd: too many arguments", NULL);
+		ft_putendl_fd("pwd: too many arguments", STDERR_FILENO);
 		return (1);
 	}
-	buf = getcwd(NULL, 0);
+	if (!(buf = getcwd(NULL, 0)))
+	{
+		ft_putendl_fd("pwd: an error has occured", STDERR_FILENO);
+		return (1);
+	}
 	ft_putendl(buf);
 	free(buf);
 	return (0);
